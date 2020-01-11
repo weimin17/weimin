@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Coding.png">
+  <link rel="mask-icon" href="/images/Coding.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Garamond:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://weimin17.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration">
+<meta property="og:url" content="http://weimin17.github.io/2018/01/Learning-Notes-Velocity-Optimization-of-Pure-Electric-Vehicles-with-Traffic-Dynamics-Consideration/index.html">
+<meta property="og:site_name" content="A DL&#x2F;ML Learner">
+<meta property="og:description" content="Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. A">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/weimin17/weimin17.github.io/blob/master/images/Picture1.jpg">
+<meta property="article:published_time" content="2018-01-09T01:40:00.000Z">
+<meta property="article:modified_time" content="2018-01-09T02:03:29.000Z">
+<meta property="article:author" content="weimin17">
+<meta property="article:tag" content="Optiminzation">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/weimin17/weimin17.github.io/blob/master/images/Picture1.jpg">
+
+<link rel="canonical" href="http://weimin17.github.io/2018/01/Learning-Notes-Velocity-Optimization-of-Pure-Electric-Vehicles-with-Traffic-Dynamics-Consideration/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>[Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration | A DL/ML Learner</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-156005782-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A DL/ML Learner</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Train like a beast.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2018/01/Learning-Notes-Velocity-Optimization-of-Pure-Electric-Vehicles-with-Traffic-Dynamics-Consideration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin17">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-01-08 20:40:00 / Modified: 21:03:29" itemprop="dateCreated datePublished" datetime="2018-01-08T20:40:00-05:00">2018-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning Notes</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><code>Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. And if there are anything wrong, please feel free to drop me an Email to correct me. I would appreciate your correction.</code></p>
+<a id="more"></a>
+<p><a href="http://www.cs.virginia.edu/~hs6ms/publishedPaper/Conference/2017/ICDCS-2017-Velocity-Optimization.pdf" target="_blank" rel="noopener">Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration.</a></p>
+<p> This paper is well organized, and the thinking is innovative. Here are my understanding and thoughts:</p>
+<h2 id="Understanding-based-on-paper"><a href="#Understanding-based-on-paper" class="headerlink" title="Understanding based on paper"></a>Understanding based on paper</h2><p>1.The Problem solved in the paper</p>
+<p>The paper proposes a Dynamic Programming(DP)-based velocity optimization system, which enables Evs to pass green traffic light without delay.</p>
+<p>2.Main challenge:</p>
+<p>How to accurately predict the number of vehicles waiting in front of a traffic lights(considering traffic dynamics situation) so that Evs can pass through the traffic light without delay</p>
+<p>3.The System Architecture:</p>
+<p>I designed the architecture myself based on this paper:</p>
+<p><img src="https://github.com/weimin17/weimin17.github.io/blob/master/images/Picture1.jpg" alt="System Architecture"></p>
+<p>The system has three parts:</p>
+<pre><code>A. Energy Consumption Model of Electric Vehicle
+In the new energy consumption model, it figures out corresponding driving force changes when a vehicle passes through a road with different road grades. There are three important concepts: Required Force F; Energy for driving E; and Energy Consumption Rate.
+
+B.Queue Length Model considering traffic dynamics in traffic signal areas
+
+The key of this model are vehicle arriving rate and vehicle leaving rate. 
+
+Arriving rate: the traffic volume prediction is both a temporal and spatial process. You choose SAE, which provides hierarchical feature extraction and has higher prediction accuracy.
+
+Leaving rate: you use VM model, which considers vehicle acceleration process
+
+C.DP-based velocity optimization system
+
+The key improvement is considering traffic dynamics by adding penalty function.</code></pre><p>4.Experiments</p>
+<p>The paper collects three-month long traffic data to predict by SAE. The final energy consumption reduces.</p>
+<h2 id="My-thoughts-and-understanding"><a href="#My-thoughts-and-understanding" class="headerlink" title="My thoughts and understanding:"></a>My thoughts and understanding:</h2><p>The paper combine traffic knowledge, physical laws and energy model, in order to optimize energy consumption problem. So it’s a optimization problem considering some assumptions and constrains. I have done similar research during my undergraduate study. Some thoughts:</p>
+<ol>
+<li>The paper uses deep learning based method: SAE, to predict traffic dynamics data, which is sequential data containing both spatial and temporal information. It’s very similar with what my current research, and I thought there are some better ways to do the prediction using deep learning - Convolutional LSTM Model. I tries to improve convolutional LSTM Model by adding attention mechanism and dynamic filter, which considering temporal and spatial information.</li>
+<li>This problem is based on traffic system, so we need to know how traffic system works better. You mention that constrains, like speed limit, stop sign and acceleration, could affect the energy consumption. In future research, we could also considering other constrains, like weather (snow and rain), rush hour. For instance, in rush hour, the accelerate rate might be higher than other time, which means the vehicle leaving rate could be different. Considering different rush hours, we might make the optimization results better.</li>
+<li>In this paper, it mentions “vehicular cloud” in the  INTRODUCTION part, which says “each vehicle uploads it state (starting time and route) to the cloud through wireless communication, and then the cloud calculates the optimal velocity profile for the vehicle. “ Maybe we could combine that “vehicular cloud” idea with your DP-based velocity optimization. By uploading the current traffic situation to the cloud, we could get the accurate vehicle arrival rate and leaving rate, instead of  predicting vehicle arrival rate and leaving rate. In this way, our results might be better.<!--more--></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Optiminzation/" rel="tag"># Optiminzation</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/01/Learning-Notes-Math-First-order-Stochastic-Algorithms-for-Escaping-From-Saddle-Points-in-Almost-Linear-Time/" rel="prev" title="[Learning Notes-Math] First-order Stochastic Algorithms for Escaping From Saddle Points in Almost Linear Time">
+      <i class="fa fa-chevron-left"></i> [Learning Notes-Math] First-order Stochastic Algorithms for Escaping From Saddle Points in Almost Linear Time
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/" rel="next" title="[Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control">
+      [Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Understanding-based-on-paper"><span class="nav-number">1.</span> <span class="nav-text">Understanding based on paper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#My-thoughts-and-understanding"><span class="nav-number">2.</span> <span class="nav-text">My thoughts and understanding:</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="weimin17"
+      src="/images/avatar_idea.jpeg">
+  <p class="site-author-name" itemprop="name">weimin17</p>
+  <div class="site-description" itemprop="description">DL/ML Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/weimin17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weimin17" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weimin17</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '54ab485ae91fc57bf25e',
+      clientSecret: '98349a9bcb969cadebace85cb2bdfd2ec7ab5184',
+      repo: 'weimin17.github.io/issues/1',
+      owner: 'weimin17',
+      admin: ['weimin17'],
+      id: '5bf4299a65bc8fdab0271b339b3d7f13',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

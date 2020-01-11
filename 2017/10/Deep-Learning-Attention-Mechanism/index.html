@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Coding.png">
+  <link rel="mask-icon" href="/images/Coding.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Garamond:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://weimin17.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="首先要知道什么是attention。這裏兩篇博客，一篇宏觀介紹Attention in Long Short-Term Memory Recurrent Neural Networks，一篇從較細角度介紹Attention and Memory in Deep Learning and NLP。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Deep Learning] Attention Mechanism">
+<meta property="og:url" content="http://weimin17.github.io/2017/10/Deep-Learning-Attention-Mechanism/index.html">
+<meta property="og:site_name" content="A DL&#x2F;ML Learner">
+<meta property="og:description" content="首先要知道什么是attention。這裏兩篇博客，一篇宏觀介紹Attention in Long Short-Term Memory Recurrent Neural Networks，一篇從較細角度介紹Attention and Memory in Deep Learning and NLP。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/12/Screen-Shot-2015-12-30-at-1.16.08-PM.png">
+<meta property="og:image" content="http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/12/Screen-Shot-2015-12-30-at-1.23.48-PM.png">
+<meta property="og:image" content="http://weimin17.github.io/images/pasted-37.png">
+<meta property="article:published_time" content="2017-10-24T00:29:00.000Z">
+<meta property="article:modified_time" content="2017-11-24T01:34:08.000Z">
+<meta property="article:author" content="weimin17">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/12/Screen-Shot-2015-12-30-at-1.16.08-PM.png">
+
+<link rel="canonical" href="http://weimin17.github.io/2017/10/Deep-Learning-Attention-Mechanism/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>[Deep Learning] Attention Mechanism | A DL/ML Learner</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-156005782-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A DL/ML Learner</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Train like a beast.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Attention-Mechanism/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin17">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Deep Learning] Attention Mechanism
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-23 20:29:00" itemprop="dateCreated datePublished" datetime="2017-10-23T20:29:00-04:00">2017-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-11-23 20:34:08" itemprop="dateModified" datetime="2017-11-23T20:34:08-05:00">2017-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>首先要知道什么是attention。這裏兩篇博客，一篇宏觀介紹<a href="https://machinelearningmastery.com/attention-long-short-term-memory-recurrent-neural-networks/" target="_blank" rel="noopener">Attention in Long Short-Term Memory Recurrent Neural Networks</a>，一篇從較細角度介紹<a href="http://www.wildml.com/2016/01/attention-and-memory-in-deep-learning-and-nlp/" target="_blank" rel="noopener">Attention and Memory in Deep Learning and NLP</a>。</p>
+<a id="more"></a>
+<p><strong>Attention</strong> is usually combine with RNN, seq2seq, encoder-decoder, you can see my own blog <code>[Deep Learning] Seq2Seq</code> for developed information.</p>
+<p>I combine some points in these two blogs:</p>
+<h4 id="1-What-is-Attention"><a href="#1-What-is-Attention" class="headerlink" title="1. What is Attention"></a>1. <strong>What is Attention</strong></h4><p>Attention Mechanisms in Neural Networks are (very) loosely based on the visual attention mechanism found in humans. Human visual attention is well-studied and while there exist different models, all of them essentially come down to being able to  <font color=#DC143C><strong>focus on a certain region of an image with “high resolution” while perceiving the surrounding image in “low resolution”, and then adjusting the focal point over time.</strong></font></p>
+<p>Attention in Neural Networks has a long history, particularly in image recognition. Examples include Learning to combine foveal glimpses with a third-order Boltzmann machine or Learning where to Attend with Deep Architectures for Image Tracking. But only recently have attention mechanisms made their way into recurrent neural networks architectures that are typically used in NLP (and increasingly also in vision). </p>
+<p>Attention is the idea of freeing the encoder-decoder architecture from <em>the fixed-length internal representation</em> (Maybe to overcome the disadvantages of <em>long input sequences</em> is better). This is achieved by keeping the intermediate outputs from the encoder LSTM from each step of the input sequence and training the model to learn to <font color=#DC143C><strong>pay selective attention to these inputs and relate them to items in the output sequence</strong></font>. Put another way, each item in the output sequence is conditional on selective items in the input sequence. 最初attention是应用与RNN相关网络，后来也可以用到CNN相关网络（如文章[Convolutional Sequence to Sequence])</p>
+<h4 id="2-Why-Attention"><a href="#2-Why-Attention" class="headerlink" title="2. Why Attention"></a>2. <strong>Why Attention</strong></h4><p>The Encoder-Decoder architecture is popular because it has demonstrated state-of-the-art results across a range of domains.</p>
+<p>A limitation of the architecture is that it encodes the input sequence to a <strong>fixed length internal representation</strong>. This imposes limits on the length of input sequences that can be reasonably learned and results in <strong>worse performance</strong> for very <strong>long input sequences</strong>.</p>
+<h4 id="3-Disadvantages"><a href="#3-Disadvantages" class="headerlink" title="3. Disadvantages"></a>3. <strong>Disadvantages</strong></h4><p>This increases the computational burden of the model, but results in a more targeted and better-performing model.</p>
+<h4 id="4-Attention-Examples"><a href="#4-Attention-Examples" class="headerlink" title="4. Attention Examples"></a>4. <strong>Attention Examples</strong></h4><p>Blog: <a href="https://machinelearningmastery.com/attention-long-short-term-memory-recurrent-neural-networks/" target="_blank" rel="noopener">Part5 Examples of Attention in Sequence Prediction</a><br>Several Tensorflow Implementations: <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/seq2seq/python/ops/attention_wrapper.py" target="_blank" rel="noopener">Tensorflow attention wrapper</a></p>
+<p>In this part, I introduce several attention mechanisms. Those of which has a tensorflow implementations, I name them as “- tensorflow implementation”.</p>
+<h5 id="Soft-Attention"><a href="#Soft-Attention" class="headerlink" title="Soft Attention"></a><strong>Soft Attention</strong></h5><p><a href="https://arxiv.org/abs/1511.04119" target="_blank" rel="noopener">Action Recognition using Visual Attention</a></p>
+<p>######<strong>Attention in Translation - tensorflow implementation</strong></p>
+<p> <a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="noopener">Neural Machine Translation by Jointly Learning to Align and Translate</a><br>With an attention mechanism we no longer try encode the full source sentence into a fixed-length vector. Rather, we allow the decoder to “attend” to different parts of the source sentence at each step of the output generation. Importantly, we let the model learn what to attend to based on the input sentence and what it has produced so far.  So, in languages that are pretty well aligned (like English and German) the decoder would probably choose to attend to things sequentially. Attending to the first word when producing the first English word, and so on. That’s what was done in <a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="noopener">Neural Machine Translation by Jointly Learning to Align and Translate</a> and look as follows:</p>
+<p><img src="http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/12/Screen-Shot-2015-12-30-at-1.16.08-PM.png" alt="@Neural Machine Translation by Jointly Learning to Align and Translate|center|300*300"></p>
+<p>Here, The <code>y&#39;s</code> are our translated words produced by the decoder, and the <code>x&#39;s</code> are our source sentence words. The above illustration uses a bidirectional recurrent network, but that’s not important and you can just ignore the inverse direction. The important part is that each decoder output word y_t now depends on <strong>a weighted combination of all the input states</strong>, not just the last state. The a‘s are weights that define in how much of each input state should be considered for each output. So, if $a_{3,2}$ is a large number, this would mean that the decoder pays a lot of attention to the second state in the source sentence while producing the third word of the target sentence. The <code>a&#39;s</code> are typically normalized to sum to 1 (so they are a distribution over the input states).</p>
+<p>A big advantage of attention is that it gives us the ability to interpret and visualize what the model is doing. For example, by visualizing the attention weight matrix a when a sentence is translated, we can understand how the model is translating:</p>
+<p><img src="http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/12/Screen-Shot-2015-12-30-at-1.23.48-PM.png" alt="@Visualization| center| 300*300"></p>
+<h6 id="Attention-in-Translation"><a href="#Attention-in-Translation" class="headerlink" title="Attention in Translation"></a><strong>Attention in Translation</strong></h6><p><a href="https://arxiv.org/abs/1508.04025" target="_blank" rel="noopener">Effective Approaches to Attention-based Neural Machine Translation</a></p>
+<p><img src="/images/pasted-37.png" alt="upload successful"></p>
+<h5 id="Hard-Attention"><a href="#Hard-Attention" class="headerlink" title="Hard Attention"></a><strong>Hard Attention</strong></h5><h6 id="BahdanauMonotonicAttention-tensorflow-implementation"><a href="#BahdanauMonotonicAttention-tensorflow-implementation" class="headerlink" title="BahdanauMonotonicAttention - tensorflow implementation"></a><strong>BahdanauMonotonicAttention - tensorflow implementation</strong></h6><p><a href="https://arxiv.org/abs/1704.00784" target="_blank" rel="noopener">Online and Linear-Time Attention by Enforcing Monotonic Alignments</a><br><a href="https://www.tensorflow.org/api_docs/python/tf/contrib/seq2seq/BahdanauMonotonicAttention" target="_blank" rel="noopener">Tensorflow Doc</a></p>
+<p>Short comings of <code>Soft Attentin</code>:<br>However, the fact that soft attention mechanisms perform a pass over the<br>entire input sequence when producing each element in the output sequence precludes their use in online settings and results in a quadratic time complexity.</p>
+<p>The focus of this paper is to propose an alternative attention mechanism which has linear-time complexity and can be used in online settings.</p>
+<p>We believe our framework presents a promising environment for future<br>work on online and linear-time sequence-to-sequence models. </p>
+<h5 id="LuongMonotonicAttention-tensorflow-implementation"><a href="#LuongMonotonicAttention-tensorflow-implementation" class="headerlink" title="LuongMonotonicAttention - tensorflow implementation"></a><strong>LuongMonotonicAttention - tensorflow implementation</strong></h5><p>  Colin Raffel, Minh-Thang Luong, Peter J. Liu, Ron J. Weiss, Douglas Eck,<br>  “Online and Linear-Time Attention by Enforcing Monotonic Alignments.”<br>  ICML 2017.  <a href="https://arxiv.org/abs/1704.00784" target="_blank" rel="noopener">https://arxiv.org/abs/1704.00784</a></p>
+<h5 id="Examples-of-Attention-in-Image-Descriptions"><a href="#Examples-of-Attention-in-Image-Descriptions" class="headerlink" title="Examples of Attention in Image Descriptions"></a><strong>Examples of Attention in Image Descriptions</strong></h5><p>Paper:<br><a href="https://arxiv.org/pdf/1502.03044.pdf" target="_blank" rel="noopener">Show, Attend and Tell: Neural Image Caption Generation with Visual Attention</a></p>
+<h4 id="5-Attention-Fuzzy-Memory"><a href="#5-Attention-Fuzzy-Memory" class="headerlink" title="5.  Attention = (Fuzzy) Memory?"></a>5.  <strong>Attention = (Fuzzy) Memory?</strong></h4><p>The basic problem that the attention mechanism solves is that it allows the network to refer back to the input sequence, instead of forcing it to encode all information into one fixed-length vector. As I mentioned above, I think that attention is somewhat of a misnomer. Interpreted another way, the attention mechanism is simply giving the network access to its internal memory, which is the hidden state of the encoder. In this interpretation, instead of choosing what to “attend” to, the network chooses what to retrieve from memory. Unlike typical memory, the memory access mechanism here is soft, which means that the network retrieves a weighted combination of all memory locations, not a value from a single discrete location. Making the memory access soft has the benefit that we can easily train the network end-to-end using backpropagation (though there have been non-fuzzy approaches where the gradients are calculated using sampling methods instead of backpropagation).</p>
+<p>Memory Mechanisms themselves have a much longer history. The hidden state of a standard Recurrent Neural Network is itself a type of internal memory. RNNs suffer from the vanishing gradient problem that prevents them from learning long-range dependencies. LSTMs improved upon this by using a gating mechanism that allows for explicit memory deletes and updates.</p>
+<p>The trend towards more complex memory structures is now continuing. End-to-End Memory Networks allow the network to read same input sequence multiple times before making an output, updating the memory contents at each step. For example, answering a question by making multiple reasoning steps over an input story. However, when the networks parameter weights are tied in a certain way, the memory mechanism inEnd-to-End Memory Networks identical to the attention mechanism presented here, only that it makes multiple hops over the memory (because it tries to integrate information from multiple sentences).</p>
+<p>Neural Turing Machines use a similar form of memory mechanism, but with a more sophisticated type of addressing that using both content-based (like here) and location-based addressing, allowing the network to learn addressing pattern to execute simple computer programs, like sorting algorithms.</p>
+<p>It’s likely that in the future we will see a clearer distinction between memory and attention mechanisms, perhaps along the lines of Reinforcement Learning Neural Turing Machines, which try to learn access patterns to deal with external interfaces.</p>
+<!--more-->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/Deep-Learning-Extensions-of-Recurrent-Neural-Networks/" rel="prev" title="[Deep Learning] Extensions of Recurrent Neural Networks">
+      <i class="fa fa-chevron-left"></i> [Deep Learning] Extensions of Recurrent Neural Networks
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/Deep-Learning-Gated-Linear-Unit/" rel="next" title="[Deep Learning] Gated Linear Unit">
+      [Deep Learning] Gated Linear Unit <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-What-is-Attention"><span class="nav-number">1.</span> <span class="nav-text">1. What is Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Why-Attention"><span class="nav-number">2.</span> <span class="nav-text">2. Why Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Disadvantages"><span class="nav-number">3.</span> <span class="nav-text">3. Disadvantages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Attention-Examples"><span class="nav-number">4.</span> <span class="nav-text">4. Attention Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Soft-Attention"><span class="nav-number">4.1.</span> <span class="nav-text">Soft Attention</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Attention-in-Translation"><span class="nav-number">4.1.1.</span> <span class="nav-text">Attention in Translation</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Hard-Attention"><span class="nav-number">4.2.</span> <span class="nav-text">Hard Attention</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#BahdanauMonotonicAttention-tensorflow-implementation"><span class="nav-number">4.2.1.</span> <span class="nav-text">BahdanauMonotonicAttention - tensorflow implementation</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LuongMonotonicAttention-tensorflow-implementation"><span class="nav-number">4.3.</span> <span class="nav-text">LuongMonotonicAttention - tensorflow implementation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Examples-of-Attention-in-Image-Descriptions"><span class="nav-number">4.4.</span> <span class="nav-text">Examples of Attention in Image Descriptions</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Attention-Fuzzy-Memory"><span class="nav-number">5.</span> <span class="nav-text">5.  Attention &#x3D; (Fuzzy) Memory?</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="weimin17"
+      src="/images/avatar_idea.jpeg">
+  <p class="site-author-name" itemprop="name">weimin17</p>
+  <div class="site-description" itemprop="description">DL/ML Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/weimin17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weimin17" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weimin17</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '54ab485ae91fc57bf25e',
+      clientSecret: '98349a9bcb969cadebace85cb2bdfd2ec7ab5184',
+      repo: 'weimin17.github.io/issues/1',
+      owner: 'weimin17',
+      admin: ['weimin17'],
+      id: '06411e6a3327ebdf67c03af317287cfb',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Coding.png">
+  <link rel="mask-icon" href="/images/Coding.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Garamond:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://weimin17.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control">
+<meta property="og:url" content="http://weimin17.github.io/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/index.html">
+<meta property="og:site_name" content="A DL&#x2F;ML Learner">
+<meta property="og:description" content="Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. A">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-01-09T01:59:00.000Z">
+<meta property="article:modified_time" content="2018-01-09T02:03:12.000Z">
+<meta property="article:author" content="weimin17">
+<meta property="article:tag" content="Math">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://weimin17.github.io/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>[Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control | A DL/ML Learner</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-156005782-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A DL/ML Learner</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Train like a beast.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin17">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-01-08 20:59:00 / Modified: 21:03:12" itemprop="dateCreated datePublished" datetime="2018-01-08T20:59:00-05:00">2018-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning Notes</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><code>Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. And if there are anything wrong, please feel free to drop me an Email to correct me. I would appreciate your correction.</code></p>
+<p>In this blog, I would summary two papers, which were the achievement of the same professor. And the two paper requires a solid mathematical background.</p>
+<a id="more"></a>
+
+<h2 id="I-Paper-one"><a href="#I-Paper-one" class="headerlink" title="I.Paper one"></a>I.Paper one</h2><p>I have read the paper: “Scheduling with Predictable Link Reliability for Wireless Networked Control”. This paper is well organized, the framework is innovating and the mathematical proof is rigorous. I am satisfied with the proof since I am high-motivated in related research, and I am sure I can handle these proof with my diligence and mathematical background if I have the fortunate to be a Ph.D. in your group. Here are my understanding and thoughts, if there is any misunderstanding, please correct me with no hesitance.  </p>
+<p>Understanding based on paper:<br>1.The Problem you solve in the paper</p>
+<p>In order to apply the PRK model in real-world settings, you design protocol PRKS that addresses the challenges of model instantiation and protocol signaling in PRK-based scheduling.<br>2.Paper’s framework:</p>
+<p>Part B: A control-theoretic approach to PRK model instantiation<br>You formulated the PRK model instantiation problem as an online regulation control problem. The core of this part is building the model predictive regulation controller. The proof of this part (Theorem1) is easy to understanding, trying to minimize<br>Then, with the Model Predictive regulation controller model (Theorem1) and the PRK-model-adaptation rule, scheduling based on the instantiated PRK model ensures the required link reliability.</p>
+<p>Part C: Protocol signaling for real-world use of the PRK model<br>In PRK-based scheduling, every node  should be aware of its existence in  and should not transmit concurrently with the reception at . This part ensures this property. Local Signal Maps: the paper proposes that every node  maintains a local signal map that contains the average signal power attenuation between  and every node  close-by. Then you propose Protocol signaling method based on signal maps, to ensure awareness of mutual interference between nodes.</p>
+<p>Part D: Protocol PRKS: putting things together</p>
+<p>This part combines all the above design to form the final protocol PRKS.</p>
+<p>My thoughts and understanding:</p>
+<ol>
+<li>In model predictive regulation control, it estimates the link reliability. It uses preliminaries like , which are traditional time series model. In statistics, there are many patterns to deal with this kind of problem. Besides, some deep learning model could also predict trends of time series data. For example, I used to use Convolutional LSTM model to predict telecommunication data considering both temporal and spatial information. Maybe we could try above deep learning techniques or some others to estimate the link reliability.</li>
+<li>In Part C, you use local signal maps to ensure the property in PRK-based scheduling - every node  should be aware of its existence in  and should not transmit concurrently with the reception at . The paper works on a wireless network. I have research experience in complex network based on link prediction methods and machine learning techniques. The link prediction could predict potential link in future based on the topology features of the current network. Could we apply the link prediction methods on wireless network? Maybe it’s worth trying.</li>
+</ol>
+<h2 id="II-Paper-two"><a href="#II-Paper-two" class="headerlink" title="II.Paper two"></a>II.Paper two</h2><p>In the paper: “A Multi-Scale Spatiotemporal Perspective of Connected and Automated Vehicles: Applications and Wireless Networking”, you present a multi-scale spatiotemporal perspective of wireless communication technologies. I only briefly review that paper, the keyword “spatiotemporal perspective” attracts me. Maybe I can apply some deep learning techniques or statistical methods on processing spatiotemporal data, which might get some better results. My current research focuses on predicting high-dimensional telecommunications by proposing a novel model, considering both temporal and spatial factors, with one adding attention mechanism and the other adding dynamic filters. Maybe there is a good combination of these techniques and your research.</p>
+<!--more-->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Math/" rel="tag"># Math</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/01/Learning-Notes-Velocity-Optimization-of-Pure-Electric-Vehicles-with-Traffic-Dynamics-Consideration/" rel="prev" title="[Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration">
+      <i class="fa fa-chevron-left"></i> [Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/LearningNotes-TieNet-Text-Image-Embedding-Network-for-Common-Thorax-Disease-Classification-and-Reporting-in-Chest-X-rays-2018CVPR/" rel="next" title="[LearningNotes]TieNet Text-Image Embedding Network for Common Thorax Disease Classification and Reporting in Chest X-rays(2018CVPR)">
+      [LearningNotes]TieNet Text-Image Embedding Network for Common Thorax Disease Classification and Reporting in Chest X-rays(2018CVPR) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-Paper-one"><span class="nav-number">1.</span> <span class="nav-text">I.Paper one</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-Paper-two"><span class="nav-number">2.</span> <span class="nav-text">II.Paper two</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="weimin17"
+      src="/images/avatar_idea.jpeg">
+  <p class="site-author-name" itemprop="name">weimin17</p>
+  <div class="site-description" itemprop="description">DL/ML Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/weimin17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weimin17" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weimin17</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '54ab485ae91fc57bf25e',
+      clientSecret: '98349a9bcb969cadebace85cb2bdfd2ec7ab5184',
+      repo: 'weimin17.github.io/issues/1',
+      owner: 'weimin17',
+      admin: ['weimin17'],
+      id: '7c3bd70a1cb1bad56a569dd23650261d',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Coding.png">
+  <link rel="mask-icon" href="/images/Coding.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Garamond:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://weimin17.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="在上一篇博客中，我介绍了在Mac环境下如何利用GitHub和Hexo搭建个人博客，以及一些基本的操作。这篇博文承接上一篇，介绍hexo进阶使用，更多功能，仍待学习。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac: Using Github+Hexo to build personal blog(2)">
+<meta property="og:url" content="http://weimin17.github.io/2017/09/Mac-Using-Github-Hexo-to-build-personal-blog-2/index.html">
+<meta property="og:site_name" content="A DL&#x2F;ML Learner">
+<meta property="og:description" content="在上一篇博客中，我介绍了在Mac环境下如何利用GitHub和Hexo搭建个人博客，以及一些基本的操作。这篇博文承接上一篇，介绍hexo进阶使用，更多功能，仍待学习。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://weimin17.github.io/images/pasted-5.png">
+<meta property="article:published_time" content="2017-09-10T10:56:00.000Z">
+<meta property="article:modified_time" content="2020-01-10T21:46:44.449Z">
+<meta property="article:author" content="weimin17">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://weimin17.github.io/images/pasted-5.png">
+
+<link rel="canonical" href="http://weimin17.github.io/2017/09/Mac-Using-Github-Hexo-to-build-personal-blog-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Mac: Using Github+Hexo to build personal blog(2) | A DL/ML Learner</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-156005782-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A DL/ML Learner</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Train like a beast.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Mac-Using-Github-Hexo-to-build-personal-blog-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin17">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac: Using Github+Hexo to build personal blog(2)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-09-10 06:56:00" itemprop="dateCreated datePublished" datetime="2017-09-10T06:56:00-04:00">2017-09-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-10 16:46:44" itemprop="dateModified" datetime="2020-01-10T16:46:44-05:00">2020-01-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Skills/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer Skills</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在上一篇博客中，我介绍了在Mac环境下如何利用GitHub和Hexo搭建个人博客，以及一些基本的操作。这篇博文承接上一篇，介绍hexo进阶使用，更多功能，仍待学习。</p>
+<a id="more"></a>
+<h1 id="五、Hexo进阶"><a href="#五、Hexo进阶" class="headerlink" title="五、Hexo进阶"></a>五、Hexo进阶</h1><h3 id="1-hexo命令行使用"><a href="#1-hexo命令行使用" class="headerlink" title="1.hexo命令行使用"></a>1.hexo命令行使用</h3><p>常用命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hexo help #查看帮助</span><br><span class="line">hexo init #初始化一个目录</span><br><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo new page &quot;pageName&quot; #新建页面</span><br><span class="line">hexo generate #生成网页，可以在 public 目录查看整个网站的文件</span><br><span class="line">hexo server #本地预览，&#39;Ctrl+C&#39;关闭</span><br><span class="line">hexo deploy #部署.deploy目录</span><br><span class="line">hexo clean #清除缓存，强烈建议每次执行命令前先清理缓存，每次部署前先删除 .deploy 文件夹</span><br><span class="line">hexo server -s #静态模式</span><br><span class="line">hexo server -p 5000 #更改端口</span><br><span class="line">hexo server -i 192.168.1</span><br></pre></td></tr></table></figure>
+<p>简写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo n &#x3D;&#x3D; hexo new</span><br><span class="line">hexo g &#x3D;&#x3D; hexo generate</span><br><span class="line">hexo s &#x3D;&#x3D; hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="2-绑定域名"><a href="#2-绑定域名" class="headerlink" title="2.绑定域名"></a>2.绑定域名</h3><p>虽然在Internet上可以访问我们的网站，但是网址是GitHub提供的：<code>xxx.github.io</code>.而我们想使用我们自己刚买的个性化域名，这就需要绑定，这里以阿里云为例。登陆到阿里云：<a href="https://cn.aliyun.com/" target="_blank" rel="noopener">阿里云</a>，点击<strong>控制台</strong>进入管理控制台的域名列表，找到你的个性化域名，进入解析：<br>点击<strong>添加解析</strong>按钮，添加三条记录：<br><img src="/images/pasted-5.png" alt="upload successful"><br>这里两条A记录是固定的，从GitHub官方文档可以找到，这两条是指向GitHub的地址；一条CNAME地址，记录指向是<strong>用户名.github.io</strong>，这里的用户名是你自己的用户名。<br>接着登陆GitHub，进入之前创建的仓库，点击<strong>Settings</strong>，拉到最后，找到<strong>Custom domain</strong>，填入自己申请的个性域名，点击<strong>Save</strong>：<br>完成后打开浏览器，在地址栏输入你的个性化域名，就可以直接进入你自己搭建的网站。这一步操作相当于在GitHub仓库目录添加一个CNAME文件，文件中的内容为你刚输入的domain，当GithubPage服务器接收到访问请求时，就知道对应的是这个工程了。</p>
+<h3 id="3-更改主题"><a href="#3-更改主题" class="headerlink" title="3.更改主题"></a>3.更改主题</h3><p>Hexo的默认主题是<strong>landscape</strong>，Hexo官网提供了很多可供选择的主题：<a href="https://hexo.io/themes/index.html" target="_blank" rel="noopener">Themes</a>，目前比较流行的是<strong>Next，Casper，Uno，Modernist，yilia</strong>等等。<br>可以在<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="noopener">此处</a>寻找自己喜欢的主题。下载所有的主题文件，保存到<strong>Hexo</strong>目录下的<strong>themes</strong>文件夹下。然后在<strong>_config.yml</strong>文件中修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: http:&#x2F;&#x2F;hexo.io&#x2F;plugins&#x2F;</span><br><span class="line">## Themes: http:&#x2F;&#x2F;hexo.io&#x2F;themes&#x2F;</span><br><span class="line">theme: landscape &#x2F;&#x2F;themes文件夹中对应文件夹的名称</span><br></pre></td></tr></table></figure>
+<p>然后先执行<code>hexo clean</code>，然后重新<code>hexo g</code>，并且<code>hexo d</code>，很快就能看到新主题的效果了~</p>
+<h3 id="4-更新文章"><a href="#4-更新文章" class="headerlink" title="4.更新文章"></a>4.更新文章</h3><p>更新文章可以打开终端进入博客根目录，输入指令hexo n “文章名”来实现，然后打开根目录下的<strong>source/_posts</strong>文件夹，可以发现我们新建的<strong>文章名.md</strong>文件。所有的文章都会以md形式保存在<strong>_post</strong>文件夹中，只要在<strong>_post</strong>文件夹中新建md类型的文档，就能在执行<code>hexo g</code>的时候被渲染。 新建的文章头需要添加一些yml信息，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: hello-world   &#x2F;&#x2F;在此处添加你的标题。</span><br><span class="line">date: 2014-11-7 08:55:29   &#x2F;&#x2F;在此处输入你编辑这篇文章的时间。</span><br><span class="line">categories: Exercise   &#x2F;&#x2F;在此处输入这篇文章的分类。</span><br><span class="line">toc: true  &#x2F;&#x2F;在此处设定是否开启目录，需要主题支持。</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>然后就可以打开md文档用Markdown语法来写文章了，具体的Markdown语法教程可以参照<a href="http://cn.appinn.com/markdown/" target="_blank" rel="noopener">Markdown语法说明(简体中文版)</a> 。另外补充几点上面没有的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 图像居中实现方法：&lt;center&gt;图像&lt;&#x2F;center&gt;</span><br><span class="line">2. 字体加粗可以前后各加两个星号来实现： **需要加粗的文字**</span><br><span class="line">3. 换行标签&lt;br &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<p>大部分常用用法在上面教程都可以找到。这里注意，在本地修改网站或者更新文章时，可以用指令<code>hexo s</code>在本地服务器看修改效果，打开浏览器输入<a href="http://localhost:4000" target="_blank" rel="noopener">localhost:4000</a>，每次修改后网站会实时的发生变动。但是修改后要用指令<code>hexo g</code>和<code>hexo d</code>部署到GitHub上，此时的CNAME文件和README.md文件往往会消失，需要重新创建。为了方便起见可以打开网站根目录的<strong>source</strong>文件夹，把CNAME文件和README.md文件存放在里面。注意CNAME文件没有扩展名。<br>此时还有个问题，如果把README.md文件放在<strong>source</strong>文件夹中，执行<code>hexo g</code>指令时会被渲染，解决办法是只要在博客根目录下的配置文件<strong>_config.yml</strong>中配置一下”skip_render”选项，将不需要渲染的文件名称加入的其选项下就行了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip_render: README.md</span><br></pre></td></tr></table></figure>
+<h3 id="5-寻找图床"><a href="#5-寻找图床" class="headerlink" title="5.寻找图床"></a>5.寻找图床</h3><p>当文章中有图片时，若是少量图片，可以直接把图片存放在source文件夹中，但图片会占据大量的存储的空间，加载的时候相对缓慢 ，这时考虑把博文里的图片上传到某一网站，然后获得外部链接，使用Markdown语法：<code>![图片信息](外部链接)</code> 完成图片的插入，这种网站就被成为图床。这里推荐<a href="https://www.qiniu.com/" target="_blank" rel="noopener">七牛云</a>，新人有10G的免费流量，对于个人博客来说是足够了，超出后的的费用也不贵，也是学生党可以负担得起的。</p>
+<h3 id="6-文章置顶"><a href="#6-文章置顶" class="headerlink" title="6.文章置顶"></a>6.文章置顶</h3><p>打开文件：根目录<strong>/node_modules/hexo-generator-index/lib/generator.js</strong><br>替换为以下代码并保存：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#39;use strict&#39;;</span><br><span class="line"></span><br><span class="line">var pagination &#x3D; require(&#39;hexo-pagination&#39;);</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; function(locals)&#123;</span><br><span class="line">  var config &#x3D; this.config;</span><br><span class="line">  var posts &#x3D; locals.posts;</span><br><span class="line"></span><br><span class="line">    posts.data &#x3D; posts.data.sort(function(a, b) &#123;</span><br><span class="line">        if(a.top &amp;&amp; b.top) &#123; &#x2F;&#x2F; 两篇文章top都有定义</span><br><span class="line">            if(a.top &#x3D;&#x3D; b.top) return b.date - a.date; &#x2F;&#x2F; 若top值一样则按照文章日期降序排</span><br><span class="line">            else return b.top - a.top; &#x2F;&#x2F; 否则按照top值降序排</span><br><span class="line">        &#125;</span><br><span class="line">        else if(a.top &amp;&amp; !b.top) &#123; &#x2F;&#x2F; 以下是只有一篇文章top有定义，那么将有top的排在前面（这里用异或操作居然不行233）</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(!a.top &amp;&amp; b.top) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125;</span><br><span class="line">        else return b.date - a.date; &#x2F;&#x2F; 都没定义按照文章日期降序排</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">  var paginationDir &#x3D; config.pagination_dir || &#39;page&#39;;</span><br><span class="line"></span><br><span class="line">  return pagination(&#39;&#39;, posts, &#123;</span><br><span class="line">    perPage: config.index_generator.per_page,</span><br><span class="line">    layout: [&#39;index&#39;, &#39;archive&#39;],</span><br><span class="line">    format: paginationDir + &#39;&#x2F;%d&#x2F;&#39;,</span><br><span class="line">    data: &#123;</span><br><span class="line">      __index: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在写文章时，只需要设置top参数为true即可。</p>
+<h3 id="7-数学公式"><a href="#7-数学公式" class="headerlink" title="7.数学公式"></a>7.数学公式</h3><p>Hexo允许使用MathJax来渲染LaTeX数学公式，首先安装自动部署MathJax的插件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-math --save</span><br><span class="line">hexo math install</span><br></pre></td></tr></table></figure>
+<p>接着把主题配置文件下的mathjax选项设置为true：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mathjax: true</span><br></pre></td></tr></table></figure>
+<p>如果直接在新建的博文中使用LaTeX格式的公式会出现一些问题，原因是hexo先用marked.js渲染，然后再交给MathJax渲染。在marked.js渲染的时候下划线_是被escape掉并且换成了<code>&lt;em&gt;</code>标签，即斜体字，另外LaTeX中的<code>\\</code>也会被转义成一个<code>\</code>，这样会导致MathJax渲染时不认为它是一个换行符了。<br>我们只要不让marked.js去转义<code>\\,\{,\}</code>在MathJax中有特殊用途的字符就行了。具体修改方式，用编辑器打开marked.js（在./node_modules/marked/lib/中）</p>
+<h6 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1:"></a>Step 1:</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: &#x2F;^\\([\\&#96;*&#123;&#125;\[\]()# +\-.!_&gt;])&#x2F;,</span><br></pre></td></tr></table></figure>
+<p>替换成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: &#x2F;^\\([&#96;*\[\]()# +\-.!_&gt;])&#x2F;,</span><br></pre></td></tr></table></figure>
+<p>这一步是在原基础上取消了对<code>\\,\{,\}</code>的转义(escape)</p>
+<h6 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2:"></a>Step 2:</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em: &#x2F;^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)&#x2F;,</span><br></pre></td></tr></table></figure>
+<p>替换成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em:&#x2F;^\*((?:\*\*|[\s\S])+?)\*(?!\*)&#x2F;,</span><br></pre></td></tr></table></figure>
+<p>这样一来MathJax就能与marked.js共存了。<br>在Markdown中输入数学公式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">• 行内：$数学公式$</span><br><span class="line">• 行间：$$数学公式$$</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-添加菜单选项"><a href="#8-添加菜单选项" class="headerlink" title="8.添加菜单选项"></a>8.添加菜单选项</h3><p>默认情况下，菜单导航栏有<strong>首页、归档、关于</strong>三个选项，除此之外还可以添加、删除。在主题配置文件中，找到menu属性，进行更改。<br>然后在Hexo根目录执行指令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 添加分类页面</span><br><span class="line">hexo new page &quot;categories&quot;</span><br><span class="line">&#x2F;&#x2F; 添加标签页面</span><br><span class="line">hexo new page “tags”</span><br><span class="line">&#x2F;&#x2F; 添加关于页面</span><br><span class="line">hexo new page &quot;about&quot;</span><br></pre></td></tr></table></figure>
+<p>执行完上述指令后，在Hexo根目录<strong>/source/</strong>文件夹下创建三个文件夹，命名分别为：categories、tags、about文件夹，在这些文件夹中分别会创建一个以index命名的Markdown文件，对这三个Markdown文件内容进行修改，使之分别为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2017-09-10 22:06:24</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2017-09-10 17:27:16</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: about</span><br><span class="line">date: 2017-09-10 22:07:26</span><br><span class="line">type: &quot;about&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>完成文件的修改，然后部署Hexo即可完成菜单选项的添加。</p>
+<h3 id="8-可视化编写"><a href="#8-可视化编写" class="headerlink" title="8.可视化编写"></a>8.可视化编写</h3><p>这款插件<code>hexo-admin</code> 能够管理文章，添加分类和标签，也可以一键部署到pages<br>现在图片可以实现粘贴上传，原插件为保存到<code>source/images</code>目录下,部署博客时同时上传。<br>具体步骤参见：<a href="https://github.com/jaredly/hexo-admin" target="_blank" rel="noopener">hexo-admin</a><br>我已修改上传图片到七牛,请参考<a href="https://xbotao.github.io/hexo-admin-qiniu/" target="_blank" rel="noopener">hexo-admin-qiniu</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-admin</span><br><span class="line">hexo server -d</span><br><span class="line">open http:&#x2F;&#x2F;localhost:4000&#x2F;admin&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-几个有用等plugions"><a href="#9-几个有用等plugions" class="headerlink" title="9.几个有用等plugions"></a>9.几个有用等plugions</h3><p><a href="https://segmentfault.com/a/1190000009594843" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009594843</a></p>
+<h1 id="六、本文重要参考"><a href="#六、本文重要参考" class="headerlink" title="六、本文重要参考"></a>六、本文重要参考</h1><p>• <a href="http://www.liliangqi.com/2017/06/22/Mac%E7%8E%AF%E5%A2%83%E5%88%A9%E7%94%A8GitHub%E5%92%8CHexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/#安装Hexo" target="_blank" rel="noopener">Mac环境利用GitHub和Hexo搭建个人博客</a><br>• GitHub Pages 官方使用说明：<a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a><br>• GitHub 官方文档，如何绑定个人域名：<a href="https://help.github.com/articles/using-a-custom-domain-with-github-pages/" target="_blank" rel="noopener">Using a custom domain with GitHub Pages</a><br>• Hexo 官方文档<br>• <a href="https://xuanwo.org/2015/03/26/hexo-intor/" target="_blank" rel="noopener">史上最详细 的Hexo博客搭建图文教程</a></p>
+<!--more-->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/09/Mac-Github-Hexo-to-build-personal-blog/" rel="prev" title="Mac: Using Github+Hexo to build personal blog(1)">
+      <i class="fa fa-chevron-left"></i> Mac: Using Github+Hexo to build personal blog(1)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/09/Learning-Notes-A-New-Representation-of-Skeleton-Sequences-for-3D-Action-Recognition/" rel="next" title="[Learning Notes]A New Representation of Skeleton Sequences for 3D Action Recognition">
+      [Learning Notes]A New Representation of Skeleton Sequences for 3D Action Recognition <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#五、Hexo进阶"><span class="nav-number">1.</span> <span class="nav-text">五、Hexo进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-hexo命令行使用"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.hexo命令行使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-绑定域名"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.绑定域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-更改主题"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.更改主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-更新文章"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.更新文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-寻找图床"><span class="nav-number">1.0.5.</span> <span class="nav-text">5.寻找图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-文章置顶"><span class="nav-number">1.0.6.</span> <span class="nav-text">6.文章置顶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-数学公式"><span class="nav-number">1.0.7.</span> <span class="nav-text">7.数学公式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Step-1"><span class="nav-number">1.0.7.0.0.1.</span> <span class="nav-text">Step 1:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Step-2"><span class="nav-number">1.0.7.0.0.2.</span> <span class="nav-text">Step 2:</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-添加菜单选项"><span class="nav-number">1.0.8.</span> <span class="nav-text">8.添加菜单选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-可视化编写"><span class="nav-number">1.0.9.</span> <span class="nav-text">8.可视化编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-几个有用等plugions"><span class="nav-number">1.0.10.</span> <span class="nav-text">9.几个有用等plugions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、本文重要参考"><span class="nav-number">2.</span> <span class="nav-text">六、本文重要参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="weimin17"
+      src="/images/avatar_idea.jpeg">
+  <p class="site-author-name" itemprop="name">weimin17</p>
+  <div class="site-description" itemprop="description">DL/ML Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/weimin17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weimin17" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weimin17</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '54ab485ae91fc57bf25e',
+      clientSecret: '98349a9bcb969cadebace85cb2bdfd2ec7ab5184',
+      repo: 'weimin17.github.io/issues/1',
+      owner: 'weimin17',
+      admin: ['weimin17'],
+      id: '0ad157ea64c74e96a503ad5a198fe263',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

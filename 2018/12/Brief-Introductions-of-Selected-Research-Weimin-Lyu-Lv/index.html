@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Coding.png">
+  <link rel="mask-icon" href="/images/Coding.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Garamond:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://weimin17.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="My research interests are Machine Learning, Deep Learning, Natural Language Processing, and Computer Vision. Application areas include Topic Models (e.g., topic evolutionary analysis based on Dynamic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Brief Introductions of Selected Research | Weimin Lyu (Lv)">
+<meta property="og:url" content="http://weimin17.github.io/2018/12/Brief-Introductions-of-Selected-Research-Weimin-Lyu-Lv/index.html">
+<meta property="og:site_name" content="A DL&#x2F;ML Learner">
+<meta property="og:description" content="My research interests are Machine Learning, Deep Learning, Natural Language Processing, and Computer Vision. Application areas include Topic Models (e.g., topic evolutionary analysis based on Dynamic">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-12-05T04:58:00.000Z">
+<meta property="article:modified_time" content="2018-12-05T05:22:28.000Z">
+<meta property="article:author" content="weimin17">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://weimin17.github.io/2018/12/Brief-Introductions-of-Selected-Research-Weimin-Lyu-Lv/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Brief Introductions of Selected Research | Weimin Lyu (Lv) | A DL/ML Learner</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-156005782-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A DL/ML Learner</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Train like a beast.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2018/12/Brief-Introductions-of-Selected-Research-Weimin-Lyu-Lv/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin17">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Brief Introductions of Selected Research | Weimin Lyu (Lv)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-04 23:58:00" itemprop="dateCreated datePublished" datetime="2018-12-04T23:58:00-05:00">2018-12-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-12-05 00:22:28" itemprop="dateModified" datetime="2018-12-05T00:22:28-05:00">2018-12-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>My research interests are <strong>Machine Learning, Deep Learning, Natural Language Processing, and Computer Vision</strong>. Application areas include <strong>Topic Models</strong> (e.g., topic evolutionary analysis based on Dynamic Topic Model and Latent Dirichlet Allocation), <strong>Combination of Computer Vision and NLP</strong> (e.g., pathology image classification assisting with NLP classifier, Video Question &amp; Answering), <strong>Object Detection</strong> (e.g., Industry-level helmet detection), <strong>Telecommunications Prediction</strong> (e.g., telecommunication trend nowcasting using convolutional LSTM, LSTM, SVR, ARIMA algorithms), <strong>Recommending System</strong> (e.g., recommending scientific research collaborators using link prediction and machine learning), etc. The following information introduces briefly selected research of mine:</p>
+<a id="more"></a>
+
+
+<h1 id="1-Combination-of-Computer-Vision-and-Natural-Language-Processing"><a href="#1-Combination-of-Computer-Vision-and-Natural-Language-Processing" class="headerlink" title="1 Combination of Computer Vision and Natural Language Processing"></a>1 Combination of Computer Vision and Natural Language Processing</h1><h2 id="1-1-Pathology-Image-Classification-Assisting-with-NLP-Classifier"><a href="#1-1-Pathology-Image-Classification-Assisting-with-NLP-Classifier" class="headerlink" title="1.1 Pathology Image Classification Assisting with NLP Classifier"></a>1.1 Pathology Image Classification Assisting with NLP Classifier</h2><p>The Final Goal is to classify pathology images, with the help of text descriptions to improve classification performance. The project is still in progress, and I have already finished the following work:</p>
+<ol>
+<li><p>Use PdfMiner and PyPdf2 to extract text and images from pdf files <a href="https://github.com/weimin17/pdfminer-textmining-word2vec-img2vec/tree/master/codes/textmining" target="_blank" rel="noopener">Here</a></p>
+</li>
+<li><p>NLP analysis: Implement text mining tutorials – preprocessing and word2vec in Gensim and NLTK <a href="https://github.com/weimin17/pdfminer-textmining-word2vec-img2vec/tree/master/codes/textmining" target="_blank" rel="noopener">Here</a></p>
+</li>
+<li><p>Img2Vec: Use pre-trained models (or do none pre-trained) in PyTorch to extract vector embeddings from any image and calculate their similarity <a href="https://github.com/weimin17/pdfminer-textmining-word2vec-img2vec/tree/master/codes/img2vec" target="_blank" rel="noopener">Here</a></p>
+</li>
+</ol>
+<p>The whole project is available in <a href="https://github.com/weimin17/Image-NLP-classification" target="_blank" rel="noopener">https://github.com/weimin17/Image-NLP-classification</a> .</p>
+<h2 id="1-2-Video-Question-amp-Answering"><a href="#1-2-Video-Question-amp-Answering" class="headerlink" title="1.2 Video Question &amp; Answering"></a>1.2 Video Question &amp; Answering</h2><p>This project is a quick implement using “convolutional sequence to sequence learning” framework on video question and answering, trying to combining descriptions(text) and video features in order to get a better video QA system. However, the research did not proceed because of my advisor’s interest change.</p>
+<h1 id="2-Natural-Language-Processing"><a href="#2-Natural-Language-Processing" class="headerlink" title="2 Natural Language Processing"></a>2 Natural Language Processing</h1><h2 id="2-1-Topic-Models"><a href="#2-1-Topic-Models" class="headerlink" title="2.1 Topic Models"></a>2.1 Topic Models</h2><p>This research project focuses on <strong>topic evolutionary analysis based on Dynamic Topic Model(DTM) and Latent Dirichlet Allocation(LDA)</strong>, which is a 3 layer Bayesian Model. I was engaged as the person in charge of the project and carried out independent study, which is important for a PhD student. The task is not only to reveal the scientific structure based on LDA, but also to excavate the mechanism of scientific evolution based on the time series. I designed a scientific evolutionary analysis method system using iDTM, which is an innovative attempt in the Information Science area. I applied the system into NSF foundation project data as an empirical study. I also tried to compare it with Deep Belief Nets, implementing by Keras framework. During the research, I found I am eager to obtain a deeper understanding of computer science and acknowledge more advanced computing technology.</p>
+<h1 id="3-Computer-Vision"><a href="#3-Computer-Vision" class="headerlink" title="3 Computer Vision"></a>3 Computer Vision</h1><h2 id="3-1-Object-Detection"><a href="#3-1-Object-Detection" class="headerlink" title="3.1 Object Detection"></a>3.1 Object Detection</h2><p>This repository is one of my projects during my three-month-internship in K2Data. I am the main contributor in a 3-people team, and the achievement has been applied in over 2,000 factories. It tries to verify whether workers wear safety helmets when working via CCTV camera videos. The <strong>real-time video</strong> requires both high accuracy and faster calculating speed.</p>
+<ul>
+<li><p>Research, design, and implement applications for object detection</p>
+</li>
+<li><p>Increased performance of helmet detection to <strong>90%</strong> in industry level</p>
+</li>
+<li><p>Main contributor in a 3-people team, achievement has been applied in over <strong>2,000</strong> factories</p>
+</li>
+</ul>
+<p>The codes are shared on <a href="https://github.com/weimin17/Object-Detection_HelmetDetection" target="_blank" rel="noopener">My Github</a> </p>
+<h1 id="4-Machine-Learning-amp-Deep-Learning"><a href="#4-Machine-Learning-amp-Deep-Learning" class="headerlink" title="4 Machine Learning &amp; Deep Learning"></a>4 Machine Learning &amp; Deep Learning</h1><p>I have built up basic Deep Learning skills by learning and implementing algorithms, such as CNN, RNN, LSTM, Encoder-Decoder, Seq2Seq, one-shot learning, reinforcement learning. Some learning notes are posted on <a href="https://weimin17.github.io/archives/">my blog</a>.</p>
+<h2 id="4-1-Telecommunications-Prediction"><a href="#4-1-Telecommunications-Prediction" class="headerlink" title="4.1 Telecommunications Prediction"></a>4.1 Telecommunications Prediction</h2><p>This project aims to predict high-dimensional telecommunications by proposing a novel model based on Convolutional LSTM, considering both temporal and spatial factors. I implemented and compared LSTM, ConvLSTM, SVR and ARIMA model to predict future telecom trends, coding with TENSORFLOW framework and other Python packages. Codes and results are uploaded to <a href="https://github.com/weimin17/Conv_LSTM_TeleCommunications" target="_blank" rel="noopener">My Github</a> </p>
+<h2 id="4-2-Recommending-System"><a href="#4-2-Recommending-System" class="headerlink" title="4.2 Recommending System"></a>4.2 Recommending System</h2><p>One of my master’s project achievements was published in the top 5 journals in the Information Science area in China. It’s an application on data analysis combining Machine Learning and Link Prediction, in order to predict the potential scientific collaborators. I use Extremely Randomized Trees to extract and rank features. After experimenting over 20 different link prediction algorithms, the prediction accuracy of the top 10 results reached 100% at national and city level. I also found a novel way to promote efficiency of the program running time from over 24 hours to less than 3 hours. </p>
+<h1 id="5-PUBLICATIONS"><a href="#5-PUBLICATIONS" class="headerlink" title="5 PUBLICATIONS"></a>5 PUBLICATIONS</h1><p>[1]. Weimin Lv, Xiaomei Wang, Tao Han. Recommending Scientific Research Collaborators with Link Prediction and Extremely Randomized Trees Algorithm*[J]. Data Analysis and Knowledge Discovery, 2017, 1(4): 38-45.<a href="http://manu44.magtech.com.cn/Jwk_infotech_wk3/EN/10.11925/infotech.2096-3467.2017.04.05" target="_blank" rel="noopener">PDF</a></p>
+<p>[2]. Ting Chen, Xiaomei Wang, Weimin Lv. Ng-Info-Chart: The Visualization Component Based on Customized HTML Tags. New Technology of Library and Information Service, 2016, 32(6): 88-95. <a href="http://manu44.magtech.com.cn/Jwk_infotech_wk3/EN/10.11925/infotech.1003-3513.2016.06.11" target="_blank" rel="noopener">PDF</a></p>
+<!--more-->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/LearningNotes-Deep-Visual-Semantic-Alignments-for-Generating-Image-Descriptions-2015CVPR/" rel="prev" title="[LearningNotes]Deep Visual-Semantic Alignments for Generating Image Descriptions(2015CVPR)">
+      <i class="fa fa-chevron-left"></i> [LearningNotes]Deep Visual-Semantic Alignments for Generating Image Descriptions(2015CVPR)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Combination-of-Computer-Vision-and-Natural-Language-Processing"><span class="nav-number">1.</span> <span class="nav-text">1 Combination of Computer Vision and Natural Language Processing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Pathology-Image-Classification-Assisting-with-NLP-Classifier"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Pathology Image Classification Assisting with NLP Classifier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Video-Question-amp-Answering"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Video Question &amp; Answering</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Natural-Language-Processing"><span class="nav-number">2.</span> <span class="nav-text">2 Natural Language Processing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Topic-Models"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Topic Models</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Computer-Vision"><span class="nav-number">3.</span> <span class="nav-text">3 Computer Vision</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Object-Detection"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Object Detection</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Machine-Learning-amp-Deep-Learning"><span class="nav-number">4.</span> <span class="nav-text">4 Machine Learning &amp; Deep Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Telecommunications-Prediction"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 Telecommunications Prediction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Recommending-System"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Recommending System</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-PUBLICATIONS"><span class="nav-number">5.</span> <span class="nav-text">5 PUBLICATIONS</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="weimin17"
+      src="/images/avatar_idea.jpeg">
+  <p class="site-author-name" itemprop="name">weimin17</p>
+  <div class="site-description" itemprop="description">DL/ML Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/weimin17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weimin17" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weimin17</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '54ab485ae91fc57bf25e',
+      clientSecret: '98349a9bcb969cadebace85cb2bdfd2ec7ab5184',
+      repo: 'weimin17.github.io/issues/1',
+      owner: 'weimin17',
+      admin: ['weimin17'],
+      id: '551a15bd200cb4e7b0d4f8d33537414b',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

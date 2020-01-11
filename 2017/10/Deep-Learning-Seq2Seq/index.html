@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Coding.png">
+  <link rel="mask-icon" href="/images/Coding.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Garamond:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://weimin17.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="A Sequence-to-Sequence model reads a sequence (such as a sentence) as an input and produces another sequence as an output. It differs from a standard RNN in that the input sequence is completely read">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Deep Learning] Seq2Seq">
+<meta property="og:url" content="http://weimin17.github.io/2017/10/Deep-Learning-Seq2Seq/index.html">
+<meta property="og:site_name" content="A DL&#x2F;ML Learner">
+<meta property="og:description" content="A Sequence-to-Sequence model reads a sequence (such as a sentence) as an input and produces another sequence as an output. It differs from a standard RNN in that the input sequence is completely read">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://indico.io/blog/wp-content/uploads/2016/04/seq-nathan-figure3_b.jpg">
+<meta property="og:image" content="https://indico.io/blog/wp-content/uploads/2016/04/figure1.jpeg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/697b070fjw1f27r23r64bj20kv0c375r.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/697b070fjw1f27r247418j20e50cfdhc.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/697b070fjw1f27r24o2ctj20ea0co0u8.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/697b070fjw1f27r2531y2j20f40d20ub.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/697b070fjw1f27r25j290j20ef0d0gn2.jpg">
+<meta property="article:published_time" content="2017-10-24T00:25:00.000Z">
+<meta property="article:modified_time" content="2017-11-24T01:27:33.000Z">
+<meta property="article:author" content="weimin17">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://indico.io/blog/wp-content/uploads/2016/04/seq-nathan-figure3_b.jpg">
+
+<link rel="canonical" href="http://weimin17.github.io/2017/10/Deep-Learning-Seq2Seq/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>[Deep Learning] Seq2Seq | A DL/ML Learner</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-156005782-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A DL/ML Learner</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Train like a beast.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Seq2Seq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin17">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Deep Learning] Seq2Seq
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-23 20:25:00" itemprop="dateCreated datePublished" datetime="2017-10-23T20:25:00-04:00">2017-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-11-23 20:27:33" itemprop="dateModified" datetime="2017-11-23T20:27:33-05:00">2017-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>A Sequence-to-Sequence model reads a sequence (such as a sentence) as an input and produces another sequence as an output. It differs from a standard RNN in that the input sequence is completely read before the network starts producing any output. Typically, seq2seq models are implemented using two RNNs, functioning as <strong>encoders and decoders</strong>. </p>
+<a id="more"></a>
+<h3 id="An-example"><a href="#An-example" class="headerlink" title="An example"></a>An example</h3><ol>
+<li>The following example is copied from indico’s <a href="https://indico.io/blog/sequence-modeling-neuralnets-part1/" target="_blank" rel="noopener">Sequence Modeling With Neural Networks (Part 1): Language &amp; Seq2Seq</a>:</li>
+</ol>
+<p>RNNs can be used as language models for predicting future elements of a sequence given prior elements of the sequence. However, we are still missing the components necessary for building translation models since we can only operate on a single sequence, while translation operates on two sequences – the input sequence and the translated sequence.</p>
+<p>Sequence to sequence models build on top of language models by adding an encoder step and a decoder step. In the encoder step, a model converts an input sequence (such as an English sentence) into a fixed representation. In the decoder step, a language model is trained on both the output sequence (such as the translated sentence) as well as the fixed representation from the encoder. Since the decoder model sees an encoded representation of the input sequence as well as the translation sequence, it can make more intelligent predictions about future words based on the current word. For example, in a standard language model, we might see the word “crane” and not be sure if the next word should be about the bird or heavy machinery. However, if we also pass an encoder context, the decoder might realize that the input sequence was about construction, not flying animals. Given the context, the decoder can choose the appropriate next word and provide more accurate translations.</p>
+<p>Now that we understand the basics of sequence to sequence modeling, we can consider how to build a simple neural translation model. For our encoder, we will use an RNN. The RNN will process the input sequence, then pass its final output to the decoder sequence as a context variable. The decoder will also be an RNN. Its task is to look at the translated input sequence, and then try to predict the next word in the decoder sequence – given the current word in the decoder sequence, as well as the context from the encoder sequence. After training, we can produce translations by encoding the sentence we want to translate and then running the network in generation mode. The sequence to sequence model can be viewed graphically in the diagrams below.</p>
+<p><img src="https://indico.io/blog/wp-content/uploads/2016/04/seq-nathan-figure3_b.jpg" alt="@Sequence to Sequence Model – the encoder outputs a sequence of states. The decoder is a language model with an additional parameter for the last state of the encoder."></p>
+<ol start="2">
+<li><a href="http://www.wildml.com/deep-learning-glossary/#nmt" target="_blank" rel="noopener">Neural Machine Translation</a> is a typical example of a seq2seq model.</li>
+</ol>
+<h3 id="Attention-in-Sequence-Model"><a href="#Attention-in-Sequence-Model" class="headerlink" title="Attention  in Sequence Model"></a>Attention  in Sequence Model</h3><p><strong>For myself: If you have already known the attention mechanism, you might just skip this part.</strong></p>
+<p>The following explain is copied from indico’s <a href="https://indico.io/blog/sequence-modeling-neural-networks-part2-attention-models/" target="_blank" rel="noopener">Sequence Modeling with Neural Networks (Part 2): Attention Models</a>:</p>
+<p><img src="https://indico.io/blog/wp-content/uploads/2016/04/figure1.jpeg" alt="@Attention Model: Instead of receiving the last state of the encoder, the attention model uses an attention computer which returns a weighted average of the encoder states."></p>
+<h3 id="Four-Seq2Seq-Encoder-Decoder-Models"><a href="#Four-Seq2Seq-Encoder-Decoder-Models" class="headerlink" title="Four Seq2Seq Encoder-Decoder Models"></a>Four Seq2Seq Encoder-Decoder Models</h3><p>The Following part explain the three articles dynamically.</p>
+<p>[1] <a href="http://arxiv.org/abs/1409.3215" target="_blank" rel="noopener">Sequence to Sequence Learning with Neural Networks</a><br>[2] <a href="http://arxiv.org/abs/1406.1078" target="_blank" rel="noopener">Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation</a><br>[3] <a href="http://arxiv.org/abs/1409.0473" target="_blank" rel="noopener">Neural Machine Translation by Jointly Learning to Align and Translate</a><br>This part is copied from <a href="http://jacoxu.com/encoder_decoder/" target="_blank" rel="noopener">漫谈四种神经网络序列解码模型</a></p>
+<p>利用神经网络进行序列编码的模型主要为RNN，目前比较火的一些变种模型有LSTM和GRU，只是cell单元不同而已。以下统统用RNN来代表。</p>
+<p>编码模型比较简单，如下图所示，输入文本{X1-X6}经过循环迭代编码，在每个时刻得到当前时刻的一个隐层状态，最后序列结束后进行特征融合得到句子的表示。注意，一种比较常用的方式是将编码模型最后一个时刻的隐层状态做为整个序列的编码表示，但是实际应用中这种效果并不太好，因而我们的图例中直接采用了整个序列隐层编码进行求和平均的方式得到序列的编码向量。<br><img src="http://ww3.sinaimg.cn/mw690/697b070fjw1f27r23r64bj20kv0c375r.jpg" alt="@基於RNN的Seq2Seq Encoder-Decoder|center|600*400"></p>
+<p>早期的一些任务主要是做一些主题分类、情感检测等等分类任务，那么在编码向量上面添加一个softmax就可以解决问题。但是对于机器翻译和语音识别等问题则需要进行序列化解码。</p>
+<p>注意到，编码时RNN每个时刻除了自己上一时刻的隐层状态编码外，还有当前时刻的输入字符，而解码时则没有这种输入。那么，一种比较直接的方式是把编码端得到的编码向量做为解码模型的每时刻输入特征。如下图所示：<br><img src="http://ww3.sinaimg.cn/mw690/697b070fjw1f27r247418j20e50cfdhc.jpg" alt="enter image description here|center|600*400"></p>
+<p>我们用考试作弊来做为一个通俗的例子来解释一下模型。</p>
+<p>首先我们假设输入文本是所学课本，编码端则是对课本的理解所整理的课堂笔记。解码端的隐层神经网络则是我们的大脑，而每一时刻的输出则是考试时要写在卷子上的答案。在上面最简单的解码模型中，可以考虑成是考试时一边写答案一边翻看课堂笔记。如果这是一般作弊学生的做法，学霸则不需要翻书，他们有一个强大的大脑神经网络，可以记住自己的课堂笔记。解码时只需要回顾一下自己前面写过什么，然后依次认真的把答案写在答卷上，就是下面这种模型了：<br>[1] <a href="http://arxiv.org/abs/1409.3215" target="_blank" rel="noopener">Sequence to Sequence Learning with Neural Networks</a></p>
+<p><img src="http://ww1.sinaimg.cn/mw690/697b070fjw1f27r24o2ctj20ea0co0u8.jpg" alt="@Seq2Seq|center|600*400"></p>
+<p>还有很多学弱，他们不只需要作弊，而且翻看笔记的时候还需要回顾自己上一时刻写在答卷上的答案（学弱嘛，简直弱到连自己上一时刻写在答卷上的文字都记不住了），就是下面的答题模式了:<br>[2] <a href="http://arxiv.org/abs/1406.1078" target="_blank" rel="noopener">Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation</a></p>
+<p><img src="http://ww3.sinaimg.cn/mw690/697b070fjw1f27r2531y2j20f40d20ub.jpg" alt="enter image description here|center|600*400"></p>
+<p>然而学渣渣也是存在的，他们不只需要作弊，不只需要回顾自己上一时刻卸载答卷上的答案，还需要老师在课本上画出重点才能整理出自己的课题笔记（这就是一种注意力机制Attention，记笔记的时候一定要根据考题画出重点啊！），真的很照顾渣渣了，他们的答题模式如下:<br>[3] <a href="http://arxiv.org/abs/1409.0473" target="_blank" rel="noopener">Neural Machine Translation by Jointly Learning to Align and Translate</a><br><img src="http://ww2.sinaimg.cn/mw690/697b070fjw1f27r25j290j20ef0d0gn2.jpg" alt="@Attention Seq2Seq|center|600*400"></p>
+<p>Other References:<br><a href="http://www.wildml.com/deep-learning-glossary/" target="_blank" rel="noopener">Deep Learning Glossary</a></p>
+<!--more-->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/Deep-Learning-Convolutional-Neural-Networks-CNN/" rel="prev" title="[Deep Learning] Convolutional Neural Networks - CNN">
+      <i class="fa fa-chevron-left"></i> [Deep Learning] Convolutional Neural Networks - CNN
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/Deep-Learning-Extensions-of-Recurrent-Neural-Networks/" rel="next" title="[Deep Learning] Extensions of Recurrent Neural Networks">
+      [Deep Learning] Extensions of Recurrent Neural Networks <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#An-example"><span class="nav-number">1.</span> <span class="nav-text">An example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Attention-in-Sequence-Model"><span class="nav-number">2.</span> <span class="nav-text">Attention  in Sequence Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Four-Seq2Seq-Encoder-Decoder-Models"><span class="nav-number">3.</span> <span class="nav-text">Four Seq2Seq Encoder-Decoder Models</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="weimin17"
+      src="/images/avatar_idea.jpeg">
+  <p class="site-author-name" itemprop="name">weimin17</p>
+  <div class="site-description" itemprop="description">DL/ML Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/weimin17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weimin17" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weimin17</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '54ab485ae91fc57bf25e',
+      clientSecret: '98349a9bcb969cadebace85cb2bdfd2ec7ab5184',
+      repo: 'weimin17.github.io/issues/1',
+      owner: 'weimin17',
+      admin: ['weimin17'],
+      id: '999ea8f4a42511cd2b5f7c3903186016',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

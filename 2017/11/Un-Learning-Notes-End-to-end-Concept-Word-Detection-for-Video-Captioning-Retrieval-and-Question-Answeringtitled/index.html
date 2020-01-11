@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Coding.png">
+  <link rel="mask-icon" href="/images/Coding.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Garamond:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://weimin17.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="原文地址End-to-end Concept Word Detection for Video Captioning, Retrieval and Question Answering 此文章为初步学习Video Question &amp; Answering所读。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Un[Learning Notes] End-to-end Concept Word Detection for Video Captioning, Retrieval and Question Answeringtitled">
+<meta property="og:url" content="http://weimin17.github.io/2017/11/Un-Learning-Notes-End-to-end-Concept-Word-Detection-for-Video-Captioning-Retrieval-and-Question-Answeringtitled/index.html">
+<meta property="og:site_name" content="A DL&#x2F;ML Learner">
+<meta property="og:description" content="原文地址End-to-end Concept Word Detection for Video Captioning, Retrieval and Question Answering 此文章为初步学习Video Question &amp; Answering所读。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://weimin17.github.io/2017/11/Un-Learning-Notes-End-to-end-Concept-Word-Detection-for-Video-Captioning-Retrieval-and-Question-Answeringtitled/1506479849977.png">
+<meta property="article:published_time" content="2017-11-04T00:45:00.000Z">
+<meta property="article:modified_time" content="2017-11-24T01:46:46.000Z">
+<meta property="article:author" content="weimin17">
+<meta property="article:tag" content="Learning Notes">
+<meta property="article:tag" content="VideoQA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://weimin17.github.io/2017/11/Un-Learning-Notes-End-to-end-Concept-Word-Detection-for-Video-Captioning-Retrieval-and-Question-Answeringtitled/1506479849977.png">
+
+<link rel="canonical" href="http://weimin17.github.io/2017/11/Un-Learning-Notes-End-to-end-Concept-Word-Detection-for-Video-Captioning-Retrieval-and-Question-Answeringtitled/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Un[Learning Notes] End-to-end Concept Word Detection for Video Captioning, Retrieval and Question Answeringtitled | A DL/ML Learner</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-156005782-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A DL/ML Learner</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Train like a beast.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/11/Un-Learning-Notes-End-to-end-Concept-Word-Detection-for-Video-Captioning-Retrieval-and-Question-Answeringtitled/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin17">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Un[Learning Notes] End-to-end Concept Word Detection for Video Captioning, Retrieval and Question Answeringtitled
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-11-03 20:45:00" itemprop="dateCreated datePublished" datetime="2017-11-03T20:45:00-04:00">2017-11-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-11-23 20:46:46" itemprop="dateModified" datetime="2017-11-23T20:46:46-05:00">2017-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/Learning-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning Notes</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Yu_End-To-End_Concept_Word_CVPR_2017_paper.pdf" target="_blank" rel="noopener">原文地址End-to-end Concept Word Detection for Video Captioning, Retrieval and Question Answering</a></p>
+<p>此文章为初步学习Video Question &amp; Answering所读。</p>
+<a id="more"></a>
+<h3 id="1-1-Related-Work"><a href="#1-1-Related-Work" class="headerlink" title="1.1 Related Work"></a>1.1 Related Work</h3><p>我们的方法可以在图像/视频字幕两个研究方向的背景下独特定位。</p>
+<p><strong>图像/视频字幕与字检测。</strong>在近期的视野和语言研究中，已经积极研究了图像和视频字幕，其中包括[5,6,11,19,21,29,30]。其中，有几种尝试从视觉输入中检测一组概念词或属性，以提高字幕性能。在图像字幕研究中，Fang等[7]利用多实例学习（MIL）方法来训练识别具有图像的边界盒区域的一组单词的视觉检测器。基于检测到的单词，它们检索并重新排列图像的最佳字幕句子。吴等[31]使用CNN来学习图像和语义属性之间的映射。然后，他们利用映射作为语言解码器的输入，用于标题图像。</p>
+<p>他们还扩展了框架，以明确利用外部知识库，如DBpedia来进行问答任务。 Venugopalan等[28]通过利用外部来源，包括ImageNet和像维基百科的外部文本语料库等对象识别数据集，生成超出训练集中的新词的描述。你等[36]还利用互联网图像上的弱标签和标签，或者训练用于图像字幕的附加参数视觉分类器。</p>
+<p>在视频领域，学习描述性词语和视觉模式之间的关系更为模糊。视频字幕只有很少的工作; Rohrbach等人[19]提出了LSMDC数据集上的视频字幕两步法。他们首先从动画描述中提取动词，对象和地点，并分别对每组进行基于SVM的分类器。然后，他们学习基于LSTM的解码器，该解码器基于这些视觉分类器的响应生成文本描述。</p>
+<p>虽然几乎所有以前的字幕方法利用外部分类器进行概念或属性检测，但我们的工作的新颖性在于，我们只使用没有外部来源的字幕训练数据来学习单词检测器，并提出一种端到端的设计来学​​习同时进行字检测和字幕生成。此外，与仅描述电影描述的[19]的视频字幕工作相比，这项工作更全面，因为我们验证了我们的方法对于LSMDC的所有四个任务的有用性。</p>
+<p><strong>注意字幕。</strong>注意机制已成功应用于字幕生成。最早的作品之一是[33]，其选择性地关注不同的图像区域以产生输出字序列。后来，视频字幕的视频帧[35,37]的时间关注已经扩展了这种软性注意。</p>
+<p>除了对视觉输入的空间或时间结构的关注，最近You et al。 [36]提出了关于图像字幕的属性词的注意。也就是说，该方法列举了图像中一组重要的对象标签，然后动态地切换这些概念标签之间的关注。虽然我们的方法也利用了语义注意的观念，但它有两个关键的区别。首先，我们首先将语义注意力扩展到视频域，不仅是视频字幕，而且用于检索和问答任务。第二，[36]的方法依赖于从外部数据集中单独学习的分类器，而我们的方法只能使用字幕的训练数据来端对端学习。它大大减少了准备其他多标签分类器的努力。</p>
+<h3 id="1-2-Contributions"><a href="#1-2-Contributions" class="headerlink" title="1.2 Contributions"></a>1.2 Contributions</h3><p>（1）我们提出一种新颖的<code>end-to-end</code>学习方法，用于检测概念词列表，并参与其中以提高多multiple video-to-language tasks的性能。 提出的concept word detection和attention model可以插入到不同的视频字幕，检索和问答模型中。 我们的技术新颖性可以从最近的图像/视频字幕研究趋势中看出。 首先，我们的工作是第一个端到端可训练的模式，不仅用于概念词检测，而且用于语言生成。 第二，我们的工作是视频到语言任务的第一个语义关注模型。<br>（2）为了验证拟议方法的适用性，我们参加了LSMDC 2016的所有四项任务。我们的模型在三个方面实现了最佳的准确性，包括填空，多项选择测试和电影 恢复。 我们也为其他任务电影描述获得可比性能。</p>
+<h2 id="2-Detection-of-Concept-Words-from-Videos"><a href="#2-Detection-of-Concept-Words-from-Videos" class="headerlink" title="2. Detection of Concept Words from Videos"></a>2. Detection of Concept Words from Videos</h2><p>首先解释Pre-processing: Representation of words and video frames, 然后解释对给定video检测概念词。</p>
+<h3 id="2-1-Preprocessing"><a href="#2-1-Preprocessing" class="headerlink" title="2.1. Preprocessing"></a>2.1. Preprocessing</h3><p><strong>Dictionary and Word Embedding</strong><br><strong>Video Representation</strong> 将视频截取成片段，每个片段不超过n frames，每个片段截取one frame。</p>
+<p>We employ a convolutional neural network (CNN) to encode <code>*video input*</code>，将维度从高维降到低维。</p>
+<h3 id="2-2-An-Attention-Model-for-Concept-Detection"><a href="#2-2-An-Attention-Model-for-Concept-Detection" class="headerlink" title="2.2. An Attention Model for Concept Detection"></a>2.2. An Attention Model for Concept Detection</h3><p><strong>Concept Words and Traces.</strong> We propose the concept word detector using LSTM networks with soft attention mechanism. (Employ a LSTM network to treat <code>*text input*</code>) Its goal is, for a given video, to discover a list of concept words that consistently appear across frame regions. The detected concept words are used as additional references for video captioning models (section 3.1), which generates output sentence by selectively attending on those words.</p>
+<p><img src="./1506479849977.png" alt="Alt text"><br>We first define a set of candidate words with of size <code>V</code> from all training captions. Among them, we discover <code>K</code> concept words for each video. </p>
+<p>做法：</p>
+<ol>
+<li><p>用NLTK分词对text文本进行分词、词干化等操作，选取最常见的V个词作为candidate words。</p>
+</li>
+<li><p>由于我们没有视频中的Concept words的groundtrain bounding box(我的理解是，video与concept word没有对应)，我们不能在标准监督设置中训练单个概念检测器。 我们的想法是采用soft attention mechanism来通过跟踪<strong>空间一致</strong>的区域来预测词。We keep track of spatial attention over video frames using LSTM, so that adjacent相邻 spatial attentions resemble the spatial consistency of a single concept. We use a total of L tracing LSTMs to capture out L traces (or concepts), where L is the number of spatial regions in the visual feature. 将这L个concepts合并在一起，就能得到K个concept words。用这k个concept words来描述video，感觉这个地方就是文章的主要contribution。</p>
+</li>
+</ol>
+<p><strong>Computation of Spatial Attention.</strong><br>引入spatial attention weights : alpha. 这里我没有细看，大体是说这个alpha可以用于后面sematic attention generator,同时也可以起到：our model can continuously find important and temporally consistent meanings over time, that are closely related to a part of video, rather than focusing on each video frame individually. </p>
+<p>最后得出：concept confidence vector <code>p</code>。</p>
+<p><strong>Training and Inference</strong><br>Training：根据上面的p得到损失函数，用End-to-end learning approach。</p>
+<p>Inference:<br>根据<code>p</code>进行排序。For inference, we compute <code>p</code> for a given query video, and find top <code>K</code> words by score <code>p</code>。</p>
+<h2 id="3-Video-to-Language-Models"><a href="#3-Video-to-Language-Models" class="headerlink" title="3. Video-to-Language Models"></a>3. Video-to-Language Models</h2><p>本文用LSMDC task作为验证，这里简要概括LSMDC的四个任务：<br>(i) Movie description: generating a single descriptive sentence for a given movie clip, (ii) Fill-in-the-blank: given a video and a sentence with a single blank, finding a suitable word for the blank from the whole vocabulary set, (iii) Multi-choice test: given a video query and five descriptive sentences, choosing the correct one out of them, and (iv) Movie retrieval: ranking 1,000 movie clips for a given natural language query.<br>作者对这四个任务分别调整上面的模型，构造新的模型：<br>这里掠过，先看实验结果。</p>
+<h2 id="4-Experiment"><a href="#4-Experiment" class="headerlink" title="4. Experiment"></a>4. Experiment</h2><p>没细看。准确率70%左右，。先看看其他文章。</p>
+<!--more-->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Learning-Notes/" rel="tag"># Learning Notes</a>
+              <a href="/tags/VideoQA/" rel="tag"># VideoQA</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/Deep-Learning-Embedding/" rel="prev" title="[Deep Learning] Embedding">
+      <i class="fa fa-chevron-left"></i> [Deep Learning] Embedding
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/11/Learning-Notes-Convolutional-LSTM-Network-A-Machine-Learning-Approach-for-Precipitation-Nowcasting/" rel="next" title="[Learning Notes] Convolutional LSTM Network: A Machine Learning Approach for Precipitation Nowcasting">
+      [Learning Notes] Convolutional LSTM Network: A Machine Learning Approach for Precipitation Nowcasting <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Related-Work"><span class="nav-number">1.</span> <span class="nav-text">1.1 Related Work</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Contributions"><span class="nav-number">2.</span> <span class="nav-text">1.2 Contributions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Detection-of-Concept-Words-from-Videos"><span class="nav-number"></span> <span class="nav-text">2. Detection of Concept Words from Videos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Preprocessing"><span class="nav-number">1.</span> <span class="nav-text">2.1. Preprocessing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-An-Attention-Model-for-Concept-Detection"><span class="nav-number">2.</span> <span class="nav-text">2.2. An Attention Model for Concept Detection</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Video-to-Language-Models"><span class="nav-number"></span> <span class="nav-text">3. Video-to-Language Models</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Experiment"><span class="nav-number"></span> <span class="nav-text">4. Experiment</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="weimin17"
+      src="/images/avatar_idea.jpeg">
+  <p class="site-author-name" itemprop="name">weimin17</p>
+  <div class="site-description" itemprop="description">DL/ML Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/weimin17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weimin17" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weimin17</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '54ab485ae91fc57bf25e',
+      clientSecret: '98349a9bcb969cadebace85cb2bdfd2ec7ab5184',
+      repo: 'weimin17.github.io/issues/1',
+      owner: 'weimin17',
+      admin: ['weimin17'],
+      id: '75786d459b95240e5c1b3c40e2d0950a',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

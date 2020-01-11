@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Coding.png">
+  <link rel="mask-icon" href="/images/Coding.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Garamond:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://weimin17.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="CIS731: HW1-The Perceptron Model &amp; WinsorizationHW1: Explore whether Winsorizing (replacing extremely high values by predetermined upper&#x2F;lower bounds) can improve the accuracy or computational eff">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Implement The Perceptron Algorithm in Python-version2">
+<meta property="og:url" content="http://weimin17.github.io/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version2/index.html">
+<meta property="og:site_name" content="A DL&#x2F;ML Learner">
+<meta property="og:description" content="CIS731: HW1-The Perceptron Model &amp; WinsorizationHW1: Explore whether Winsorizing (replacing extremely high values by predetermined upper&#x2F;lower bounds) can improve the accuracy or computational eff">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-09-19T06:21:00.000Z">
+<meta property="article:modified_time" content="2017-09-27T05:37:01.000Z">
+<meta property="article:author" content="weimin17">
+<meta property="article:tag" content="Perceptron">
+<meta property="article:tag" content="Neuron Netwrok">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://weimin17.github.io/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Implement The Perceptron Algorithm in Python-version2 | A DL/ML Learner</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-156005782-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A DL/ML Learner</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Train like a beast.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin17">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Implement The Perceptron Algorithm in Python-version2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-09-19 02:21:00" itemprop="dateCreated datePublished" datetime="2017-09-19T02:21:00-04:00">2017-09-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-09-27 01:37:01" itemprop="dateModified" datetime="2017-09-27T01:37:01-04:00">2017-09-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="CIS731-HW1-The-Perceptron-Model-amp-Winsorization"><a href="#CIS731-HW1-The-Perceptron-Model-amp-Winsorization" class="headerlink" title="CIS731: HW1-The Perceptron Model &amp; Winsorization"></a>CIS731: HW1-The Perceptron Model &amp; Winsorization</h1><p>HW1: Explore whether Winsorizing (replacing extremely high values by predetermined upper/lower bounds) can improve the accuracy or computational effort of a single-node classification algorithm (e.g., perceptron), experimenting with any non-trivial two-class data set.</p>
+<p>This homework contains three parts: <br /><br>Part1: Algorithm Description<br /><br>Part2: Codes and Results<br /><br>Part3: The complete code (in “HW1_Perceptron.py”)</p>
+<a id="more"></a>
+<h1 id="1-Algorithm-Description-Single-Layer-Perceptron-Algorithm"><a href="#1-Algorithm-Description-Single-Layer-Perceptron-Algorithm" class="headerlink" title="1    Algorithm Description- Single-Layer Perceptron Algorithm"></a>1    Algorithm Description- Single-Layer Perceptron Algorithm</h1><h2 id="1-1-Activation-Function"><a href="#1-1-Activation-Function" class="headerlink" title="1.1    Activation Function"></a>1.1    Activation Function</h2><p><strong>This section introduces linear summation function and activation function.</strong><br/><br>The Perceptron receives input signals from training data, then combines the input vector and weight vector with a linear summation.</p>
+<p><strong>Linear summation function:</strong></p>
+<center>function=Weight*InputVector+Bias</center><br/>
+The activation function then transformed into a prediction using a transfer function (Score function)—step function.<br />
+__Step function: __<br />
+
+<h2 id="1-2-Training-Perceptron"><a href="#1-2-Training-Perceptron" class="headerlink" title="1.2 Training Perceptron"></a>1.2 Training Perceptron</h2><p>In this section, it trains the perceptron model, which contains: 1.The feed forward algorithm is introduced. 2.Updating weights and bias using delta rule.<br/></p>
+<h4 id="1-2-1-Feed-Forward"><a href="#1-2-1-Feed-Forward" class="headerlink" title="1.2.1 Feed Forward"></a>1.2.1 Feed Forward</h4><p>After defining activation function and transfer function, the second step for training a neuron network is to build a function which can make predictions using feed forward algorithm. </p>
+<h4 id="1-2-2-Updating-Weights-and-bias"><a href="#1-2-2-Updating-Weights-and-bias" class="headerlink" title="1.2.2 Updating Weights and bias"></a>1.2.2 Updating Weights and bias</h4><p>In “feed forward” process, it needs initial weights and updated weights.<br/><br>1.Firstly, initializing weights and bias to zero vector: <br/></p>
+<center>the “weights” vector= [bias, weight1, weight2, …, weight n] n is the number of features</center><br/>
+
+<p>2.Secondly, when updating weights and bias using delta rule. <br/><br>Uses Error=(Actual - Predicted) before the predicted value goes through the threshold in the learning rule to decide weight update:<br/></p>
+<center>Δw =  (learning rate) (Actual - Predicted)(inputvector)</center><br/>
+When training the neuron network, there are three loops:<br/>
++ Circulate in each epoch<br/>
++ Circulate in each row in the training data for an epoch<br/>
++ Circulate in each weight and bias, and update it for a row in an epoch<br/>
+#### 1.3 Evaluating Classification Performance Using a Cross Validation Split
+
+<p>In this section, the homework uses the classification accuracy and validation to evaluate the model performance. It contains two functions: “accuracy_ACC” and “cross_validation_evaluation”.</p>
+<h6 id="1-3-1-Accuracy"><a href="#1-3-1-Accuracy" class="headerlink" title="1.3.1 Accuracy"></a>1.3.1 Accuracy</h6><p>For a two-class problem, when “positive” vs “negative” classes are identified:</p>
+<p>P: Positive; TP: True Positive; FP=P-TP: False Positive<br/><br>N: Negative; TN: True Negative; FN=N-TN: False Negative</p>
+<p>Using classification accuracy to evaluate classification performance:</p>
+<center>Classification accuracy (ACC)= (TP+TN)/(P+N)</center>
+
+<h6 id="1-3-2-Using-Cross-Validation-Split"><a href="#1-3-2-Using-Cross-Validation-Split" class="headerlink" title="1.3.2 Using Cross Validation Split"></a>1.3.2 Using Cross Validation Split</h6><p>In order to evaluate the performance better, this homework uses cross validation. The performance is estimated by mean classification accuracy.</p>
+<ol>
+<li><p>Splitting a dataset.</p>
+</li>
+<li><p>Evaluating the Perceptron model using mean accuracy.</p>
+</li>
+</ol>
+<h4 id="1-4-Winsorizing"><a href="#1-4-Winsorizing" class="headerlink" title="1.4 Winsorizing"></a>1.4 Winsorizing</h4><p>Due to the extreme values in the statistical data, the winsorizing is applied to reduce the effect of possibly spurious outliers.</p>
+<h4 id="1-5-Iris-Dataset"><a href="#1-5-Iris-Dataset" class="headerlink" title="1.5 Iris Dataset"></a>1.5 Iris Dataset</h4><p>Iris dataset is a very classic dataset in the pattern recognition field. The original data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant. One class is linearly separable from the other 2; the latter are NOT linearly separable from each other.<br>Attribute Information:</p>
+<ol>
+<li><p>sepal length in cm </p>
+</li>
+<li><p>sepal width in cm </p>
+</li>
+<li><p>petal length in cm </p>
+</li>
+<li><p>petal width in cm </p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Data Set Characteristics:</strong></th>
+<th align="center">Multivariate</th>
+<th align="center"><strong>Number of Instances:</strong></th>
+<th align="center">150</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Attribute Characteristics:</strong></td>
+<td align="center">Real</td>
+<td align="center"><strong>Number of Attributes:</strong></td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><strong>Associated Tasks:</strong></td>
+<td align="center">Classification</td>
+<td align="center"><strong>Missing Values:</strong></td>
+<td align="center">No</td>
+</tr>
+</tbody></table>
+<p>You can learn more about this dataset at the UCI Machine Learning repository (<a href="https://archive.ics.uci.edu/ml/datasets/Iris" target="_blank" rel="noopener">https://archive.ics.uci.edu/ml/datasets/Iris</a> ).</p>
+<h1 id="2-Codes-and-Results"><a href="#2-Codes-and-Results" class="headerlink" title="2    Codes and Results"></a>2    Codes and Results</h1><h2 id="2-1-Data-Pre-Processing"><a href="#2-1-Data-Pre-Processing" class="headerlink" title="2.1 Data Pre-Processing"></a>2.1 Data Pre-Processing</h2><p>Load the Iris Dataset using Pandas Library:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df = pd.read_csv(<span class="string">'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'</span>, header=<span class="literal">None</span>)</span><br><span class="line">df.tail()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>145</th>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>Iris-virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>Iris-virginica</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>First, extract the second feature column (sepal width in cm) and the forth feature column (petal width in cm) of 100 training samples, and assign them to feature Maxtrix X, as Input vector. <em>(I will show the performance with other features in Section 2.5.)</em> The class labels correspond to the 50 Iris-Virginia and 50 Iris-Versicolor flowers.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">X = df.iloc[<span class="number">50</span>:<span class="number">150</span>, [<span class="number">1</span>, <span class="number">3</span>]].values</span><br></pre></td></tr></table></figure>
+
+<p>Also, Convert the class labels into binary labels: 1-Versicolor, -1-Virginica.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y = df.iloc[<span class="number">50</span>:<span class="number">150</span>, <span class="number">4</span>].values</span><br><span class="line">y = np.where(y == y[<span class="number">0</span>], <span class="number">1</span>, <span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Visualization: Using matplotlib to show the data in a two-dimensional scatter plot.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline </span><br><span class="line">plt.scatter(X[:<span class="number">50</span>, <span class="number">0</span>], X[:<span class="number">50</span>, <span class="number">1</span>], color=<span class="string">'red'</span>, marker=<span class="string">'o'</span>, label=<span class="string">'Versicolor'</span>)</span><br><span class="line">plt.scatter(X[<span class="number">50</span>:<span class="number">100</span>, <span class="number">0</span>], X[<span class="number">50</span>:<span class="number">100</span>, <span class="number">1</span>], color=<span class="string">'blue'</span>, marker=<span class="string">'x'</span>, label=<span class="string">'Virginica'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'sepal width in cm'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'petal width in cm'</span>)</span><br><span class="line">plt.legend(loc=<span class="string">'upper left'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/matplotlib/collections.py:548: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+  if self._edgecolors == &apos;face&apos;:</code></pre><h2 id="2-2-Training-the-Perceptron-Model"><a href="#2-2-Training-the-Perceptron-Model" class="headerlink" title="2.2 Training the Perceptron Model"></a>2.2 Training the Perceptron Model</h2><p>Define the Perceptron:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Perceptron</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, rate=<span class="number">0.01</span>, niter=<span class="number">10</span>)</span>:</span></span><br><span class="line">        self.rate = rate</span><br><span class="line">        self.niter = niter</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line">        <span class="string">"""Fit training data</span></span><br><span class="line"><span class="string">        X : Training vectors, X.shape : [#samples, #features]</span></span><br><span class="line"><span class="string">        y : Target values, y.shape : [#samples]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># weights</span></span><br><span class="line">        self.weight = np.zeros(<span class="number">1</span> + X.shape[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Number of misclassifications</span></span><br><span class="line">        self.errors = []  <span class="comment"># Number of misclassifications</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.niter):</span><br><span class="line">            err = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> xi, target <span class="keyword">in</span> zip(X, y):</span><br><span class="line">                delta_w = self.rate * (target - self.predict(xi))</span><br><span class="line">                self.weight[<span class="number">1</span>:] += delta_w * xi</span><br><span class="line">                self.weight[<span class="number">0</span>] += delta_w</span><br><span class="line">                err += int(delta_w != <span class="number">0.0</span>)</span><br><span class="line">            self.errors.append(err)</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">net_input</span><span class="params">(self, X)</span>:</span></span><br><span class="line">        <span class="string">"""Calculate net input"""</span></span><br><span class="line">        <span class="keyword">return</span> np.dot(X, self.weight[<span class="number">1</span>:]) + self.weight[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, X)</span>:</span></span><br><span class="line">        <span class="string">"""Return class label after unit step"""</span></span><br><span class="line">        <span class="keyword">return</span> np.where(self.net_input(X) &gt;= <span class="number">0.0</span>, <span class="number">1</span>, <span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Train the Perceptron Model:<br/><br>Epoch = 200,Learning rate = 0.01:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> train_test_split</span><br><span class="line">pred = Perceptron(<span class="number">0.01</span>, <span class="number">200</span>)</span><br><span class="line"><span class="comment"># use cross_validation</span></span><br><span class="line">x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="literal">None</span>)</span><br><span class="line">pred.fit(x_train, y_train)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;__main__.Perceptron at 0x108e229d0&gt;</code></pre><p>Plot the misclassification error for each epoch to check if the algorithm converged and found a decision boundary that separates the two Iris flower classes:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(range(<span class="number">1</span>, len(pred.errors) + <span class="number">1</span>), pred.errors, marker=<span class="string">'o'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Epochs'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Number of misclassifications'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>The number of misclassifications versus the number of epochs (iterations) as shown above. <strong>We can see that the misclasifications are getting down with epochs. The perceptron converged after the fifty epoch (iteration). So we set the iteration to 50.</strong></p>
+<p>Calculate the ACC accuracy using cross validation.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculating accuracy percentage using ACC</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">accuracy_ACC</span><span class="params">(actual, predicted)</span>:</span></span><br><span class="line">    correct = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(actual)):</span><br><span class="line">        <span class="keyword">if</span> actual[i] == predicted[i]:</span><br><span class="line">            correct += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> correct / float(len(actual)) * <span class="number">100.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Training the Perceptron Model</span></span><br><span class="line">pred = Perceptron(<span class="number">0.01</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">acc=[]<span class="comment"># Accuracy_ACC</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">    <span class="comment"># use cross_validation</span></span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="literal">None</span>)</span><br><span class="line">    pred.fit(x_train, y_train)</span><br><span class="line">    acc.append(accuracy_ACC(y_test, pred.predict(x_test)))</span><br><span class="line">print(<span class="string">'Accuracy_ACC:'</span>)</span><br><span class="line">print(sum(acc)/len(acc))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Accuracy_ACC:
+87.85</code></pre><p>The mean accuracy in 100 cross validation is 87.85%.<br /><br>The errors showing below mean: in every epoch, there are how many misclassifications. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pred.errors</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[29,
+ 23,
+ 23,
+ 8,
+ 8,
+ 20,
+ 15,
+ 18,
+ 16,
+ 13,
+ 12,
+ 10,
+ 12,
+ 8,
+ 10,
+ 12,
+ 13,
+ 10,
+ 13,
+ 10,
+ 10,
+ 11,
+ 12,
+ 8,
+ 10,
+ 11,
+ 10,
+ 9,
+ 10,
+ 8,
+ 8,
+ 10,
+ 11,
+ 8,
+ 8,
+ 8,
+ 10,
+ 11,
+ 8,
+ 8,
+ 8,
+ 8,
+ 10,
+ 11,
+ 8,
+ 8,
+ 9,
+ 10,
+ 10,
+ 8]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pred.weight</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([ 0.32 ,  0.32 , -0.646])</code></pre><p>The bias and the weight of the model are shown above. So the model is:</p>
+<center>$ y = 0.32 + 0.32 * feature1 -0.646* feature2 $</center>
+
+<p> Now we’re able to classify the training samples perfectly.</p>
+<h2 id="2-3-Visualization-The-decision-boundaries"><a href="#2-3-Visualization-The-decision-boundaries" class="headerlink" title="2.3 Visualization: The decision boundaries"></a>2.3 Visualization: The decision boundaries</h2><p>To visualize the decision boundaries for our 2D datasets, implement a small convenience function:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># visualize the boundaries via plot_decision_regions</span></span><br><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_decision_regions</span><span class="params">(X, y, algorithm, resolution=<span class="number">0.02</span>)</span>:</span></span><br><span class="line">    <span class="comment"># setup marker generator and color map</span></span><br><span class="line">    markers = (<span class="string">'s'</span>, <span class="string">'x'</span>, <span class="string">'o'</span>, <span class="string">'^'</span>, <span class="string">'v'</span>)</span><br><span class="line">    colors = (<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'lightgreen'</span>, <span class="string">'gray'</span>, <span class="string">'cyan'</span>)</span><br><span class="line">    cmap = ListedColormap(colors[:len(np.unique(y))])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># plot the decision surface</span></span><br><span class="line">    x1_min, x1_max = X[:, <span class="number">0</span>].min() - <span class="number">1</span>, X[:, <span class="number">0</span>].max() + <span class="number">1</span></span><br><span class="line">    x2_min, x2_max = X[:, <span class="number">1</span>].min() - <span class="number">1</span>, X[:, <span class="number">1</span>].max() + <span class="number">1</span></span><br><span class="line">    xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution),</span><br><span class="line">                           np.arange(x2_min, x2_max, resolution))</span><br><span class="line">    Z = algorithm.predict(np.array([xx1.ravel(), xx2.ravel()]).T)</span><br><span class="line">    Z = Z.reshape(xx1.shape)</span><br><span class="line">    plt.contourf(xx1, xx2, Z, alpha=<span class="number">0.4</span>, cmap=cmap)</span><br><span class="line">    plt.xlim(xx1.min(), xx1.max())</span><br><span class="line">    plt.ylim(xx2.min(), xx2.max())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># plot class samples</span></span><br><span class="line">    <span class="keyword">for</span> idx, cl <span class="keyword">in</span> enumerate(np.unique(y)):</span><br><span class="line">        plt.scatter(x=X[y == cl, <span class="number">0</span>], y=X[y == cl, <span class="number">1</span>],</span><br><span class="line">                    alpha=<span class="number">0.8</span>, c=cmap(idx),</span><br><span class="line">                    marker=markers[idx], label=cl)</span><br></pre></td></tr></table></figure>
+
+<p>Plot the decision regions:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plot_decision_regions(X, y, algorithm=pred)</span><br><span class="line">plt.xlabel(<span class="string">'sepal width [cm]'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'petal width [cm]'</span>)</span><br><span class="line">plt.legend(loc=<span class="string">'upper left'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-Winsorizing"><a href="#2-4-Winsorizing" class="headerlink" title="2.4 Winsorizing"></a>2.4 Winsorizing</h2><p>Now, winsorizing the data and see if the results become better.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">X = df.iloc[<span class="number">50</span>:<span class="number">150</span>, [<span class="number">1</span>, <span class="number">3</span>]].values</span><br><span class="line">y = df.iloc[<span class="number">50</span>:<span class="number">150</span>, <span class="number">4</span>].values</span><br><span class="line">y = np.where(y == y[<span class="number">0</span>], <span class="number">1</span>, <span class="number">-1</span>)</span><br><span class="line"><span class="comment">#Winsorizing</span></span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats</span><br><span class="line"><span class="keyword">for</span> i, raw <span class="keyword">in</span> enumerate(X.T):</span><br><span class="line">    <span class="keyword">for</span> j, col <span class="keyword">in</span> enumerate(list(stats.mstats.winsorize(raw, limits=[<span class="number">0.05</span>, <span class="number">0.05</span>]))):</span><br><span class="line">        X.T[i][j] = col</span><br></pre></td></tr></table></figure>
+
+<p>Repeat all the work in section 2.2:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Training the Perceptron Model</span></span><br><span class="line">pred = Perceptron(<span class="number">0.01</span>, <span class="number">50</span>)</span><br><span class="line">acc=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">    <span class="comment"># use cross_validation</span></span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="literal">None</span>)</span><br><span class="line">    pred.fit(x_train, y_train)</span><br><span class="line">    acc.append(accuracy_ACC(y_test, pred.predict(x_test)))</span><br><span class="line">print(<span class="string">'Accuracy_ACC:'</span>)</span><br><span class="line">print(sum(acc)/len(acc))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Accuracy_ACC:
+88.6</code></pre><p><strong>Now the accuracy has increased from 87.85 to 88.6. It turns out that winsorizing this Iris dataset could optimize the performance of the Perceptron Model.</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(range(<span class="number">1</span>, len(pred.errors) + <span class="number">1</span>), pred.errors, marker=<span class="string">'o'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Epochs'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Number of misclassifications'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(pred.weight)</span><br></pre></td></tr></table></figure>
+
+<pre><code>[ 0.42   0.292 -0.734]</code></pre><p>The bias and the weight of the model shows below.</p>
+<center>$ y = 0.42 + 0.292 * feature1 -0.734* feature2 $</center>
+
+<p>Plot the new decision regions:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Plot the decision regions</span></span><br><span class="line"><span class="comment"># 1-Versicolor, -1-Virginica</span></span><br><span class="line">plot_decision_regions(X, y, algorithm=pred)</span><br><span class="line">plt.xlabel(<span class="string">'sepal width [cm]'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'petal width [cm]'</span>)</span><br><span class="line">plt.legend(loc=<span class="string">'upper left'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="2-5-Comparing-the-winsorization-performance-with-different-number-of-features"><a href="#2-5-Comparing-the-winsorization-performance-with-different-number-of-features" class="headerlink" title="2.5 Comparing the winsorization performance with different number of features"></a>2.5 Comparing the winsorization performance with different number of features</h2><p>This section compares different situations of winsorization. The original Iris data has four features: <br/><br>Features Information:<br/></p>
+<ol>
+<li>sepal length in cm <br/></li>
+<li>sepal width in cm <br/></li>
+<li>petal length in cm <br/></li>
+<li>petal width in cm <br/></li>
+</ol>
+<p>I use the second and the forth features to build my perceptron model and evaluate the results below. In this section, I also use three features:1,2,3 and all of fours features to build the model and evaluate the results.<br/></p>
+<h4 id="2-5-1-Build-Model-with-first-three-features"><a href="#2-5-1-Build-Model-with-first-three-features" class="headerlink" title="2.5.1 Build Model with first three features"></a>2.5.1 Build Model with first three features</h4><ol>
+<li>I have used first three features to build the Perceptron Model, but the performance is worse. <br/></li>
+</ol>
+<p><strong>Accuracy_ACC: 83.75</strong><br/><br><strong>Misclassifications:</strong><br/><br>[40, 30, 26, 18, 32, 32, 23, 26, 17, 17, 25, 17, 26, 16, 20, 19, 16, 15, 9, 14, 18, 16, 15, 9, 17, 16, 13, 9, 17, 14, 9, 15, 14, 7, 14, 9, 13, 14, 9, 14, 7, 15, 14, 9, 13, 12, 7, 14, 7, 15]<br/><br><strong>Bias+Weights:</strong><br/><br>[ 0.94   1.312  0.864 -2.238]<br/></p>
+<center>$ y = 0.94 + 1.312 * feature1 + 0.864 * feature2 - 2.238 * feature3 $</center><br/>
+The mean accuracy in 100 times cross validation is only 83.75%.
+
+<ol start="2">
+<li>After winsorizing<br/></li>
+</ol>
+<p><strong>Accuracy_ACC: 84.0</strong><br/><br><strong>Misclassifications:</strong><br/><br>[30, 34, 18, 15, 32, 28, 28, 21, 26, 21, 22, 17, 20, 17, 12, 19, 18, 17, 16, 16, 15, 14, 18, 13, 15, 13, 15, 13, 15, 10, 18, 13, 13, 13, 13, 13, 13, 13, 12, 12, 10, 14, 10, 13, 13, 13, 13, 13, 13, 13]<br/><br><strong>Bias+Weights:</strong><br/><br>[ 1.16   1.122  1.094 -2.424]<br/></p>
+<center>$ y = 1.16 + 1.122 * feature1 + 1.094 * feature2 - 2.424 * feature3 $</center><br/>
+
+<h4 id="2-5-2-Build-Model-with-all-of-four-features"><a href="#2-5-2-Build-Model-with-all-of-four-features" class="headerlink" title="2.5.2 Build Model with all of four features"></a>2.5.2 Build Model with all of four features</h4><ol>
+<li>Before Winsorizing<br/></li>
+</ol>
+<p><strong>Accuracy_ACC: 89.05</strong><br/><br><strong>Misclassifications:</strong><br/><br>[34, 26, 28, 26, 18, 21, 26, 26, 20, 19, 16, 12, 16, 12, 20, 18, 11, 15, 12, 16, 13, 11, 15, 12, 16, 8, 13, 11, 8, 11, 11, 8, 13, 10, 9, 11, 10, 12, 9, 11, 10, 11, 10, 11, 10, 11, 10, 11, 8, 6]<br/><br><strong>Bias+Weights:</strong><br/><br>[ 0.96   1.016  0.88  -1.392 -2.108]<br/></p>
+<center>$ y = 0.96 + 1.016 * feature1 + 0.88 * feature2 - 1.392 * feature3 - 2.108 * feature4$</center><br/>
+2. After Winsorizing<br/>
+**Accuracy_ACC: 90.25**<br/>
+**Misclassifications:**<br/>
+[35, 25, 28, 11, 21, 17, 17, 10, 15, 15, 15, 15, 13, 15, 15, 13, 15, 13, 13, 13, 13, 13, 13, 13, 15, 4, 15, 4, 15, 4, 15, 6, 11, 13, 4, 13, 4, 13, 4, 13, 4, 13, 4, 15, 6, 13, 6, 13, 4, 15]<br/>
+**Bias+Weights:**<br/>
+[ 0.84   1.238  0.52  -1.57  -1.514]<br/>
+<center>$ y = 0.84 + 1.238 * feature1 + 0.52 * feature2 - 1.57 * feature3 - 1.514 * feature4$</center><br/>
+To clearly compare the results, I show the mean accuracy in 100 times cross valications with different numbers of featuers. Before winsorizing and after winsorizing the data, the performance shows below:<br/>
+
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Number of Features:</strong></th>
+<th align="center"><strong>Before</strong></th>
+<th align="center"><strong>After</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Two</strong></td>
+<td align="center"><strong>87.85</strong></td>
+<td align="center"><strong>88.6</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>Three</strong></td>
+<td align="center"><strong>83.75</strong></td>
+<td align="center"><strong>84.0</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>Four</strong></td>
+<td align="center"><strong>89.05</strong></td>
+<td align="center"><strong>90.25</strong></td>
+</tr>
+</tbody></table>
+<p><strong>The table shows that after winsorizing, the performance of the Perceptron Model improves.</strong><br/></p>
+<h2 id="2-6-Other-explainations"><a href="#2-6-Other-explainations" class="headerlink" title="2.6 Other explainations"></a>2.6 Other explainations</h2><ol>
+<li>In this work, I use Iris flowers “Virginica” and “Versicolor”. I also tried “Setosa” and “Versicolor” as two class - with the same two features. The results are shown below. Without winsorizing, the results are perfect. In this way, I can not prove the effect of the winsorization. So I use the present two kind of flowers to build my project. <br/><br/></li>
+</ol>
+<p><strong>Mean Accuracy of 100 cross validation using “Setosa” and “Versicolor” eaquels 99% without winsorizing. The decision region is also perfect divided:</strong><br/><br>2. The accuracy of each perceptron model is very different. For example, if I set the cross validation times to 10, then the result (mean accuracy of 10 times cross validation) is not stable, sometimes it is larger, sometimes it is smaller. So I set the times of cross validation to 100. <br/><br>In this work, I randomly split 20% of the dataset as test data and the rest of the dataset as train data.</p>
+<!--more-->
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Perceptron/" rel="tag"># Perceptron</a>
+              <a href="/tags/Neuron-Netwrok/" rel="tag"># Neuron Netwrok</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/09/Numpy%E5%BA%94%E7%94%A8/" rel="prev" title="Numpy应用">
+      <i class="fa fa-chevron-left"></i> Numpy应用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/09/Deep-Learning-Recurrent-Neural-Networks-RNN/" rel="next" title="[Deep Learning] Recurrent Neural Networks - RNN">
+      [Deep Learning] Recurrent Neural Networks - RNN <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CIS731-HW1-The-Perceptron-Model-amp-Winsorization"><span class="nav-number">1.</span> <span class="nav-text">CIS731: HW1-The Perceptron Model &amp; Winsorization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Algorithm-Description-Single-Layer-Perceptron-Algorithm"><span class="nav-number">2.</span> <span class="nav-text">1    Algorithm Description- Single-Layer Perceptron Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Activation-Function"><span class="nav-number">2.1.</span> <span class="nav-text">1.1    Activation Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Training-Perceptron"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Training Perceptron</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-Feed-Forward"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">1.2.1 Feed Forward</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-Updating-Weights-and-bias"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">1.2.2 Updating Weights and bias</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-3-1-Accuracy"><span class="nav-number">2.2.0.2.0.1.</span> <span class="nav-text">1.3.1 Accuracy</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-3-2-Using-Cross-Validation-Split"><span class="nav-number">2.2.0.2.0.2.</span> <span class="nav-text">1.3.2 Using Cross Validation Split</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-Winsorizing"><span class="nav-number">2.2.0.3.</span> <span class="nav-text">1.4 Winsorizing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-Iris-Dataset"><span class="nav-number">2.2.0.4.</span> <span class="nav-text">1.5 Iris Dataset</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Codes-and-Results"><span class="nav-number">3.</span> <span class="nav-text">2    Codes and Results</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Data-Pre-Processing"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Data Pre-Processing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Training-the-Perceptron-Model"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Training the Perceptron Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Visualization-The-decision-boundaries"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 Visualization: The decision boundaries</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-Winsorizing"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 Winsorizing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-Comparing-the-winsorization-performance-with-different-number-of-features"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 Comparing the winsorization performance with different number of features</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-1-Build-Model-with-first-three-features"><span class="nav-number">3.5.0.1.</span> <span class="nav-text">2.5.1 Build Model with first three features</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-2-Build-Model-with-all-of-four-features"><span class="nav-number">3.5.0.2.</span> <span class="nav-text">2.5.2 Build Model with all of four features</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-Other-explainations"><span class="nav-number">3.6.</span> <span class="nav-text">2.6 Other explainations</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="weimin17"
+      src="/images/avatar_idea.jpeg">
+  <p class="site-author-name" itemprop="name">weimin17</p>
+  <div class="site-description" itemprop="description">DL/ML Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/weimin17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weimin17" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weimin17</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '54ab485ae91fc57bf25e',
+      clientSecret: '98349a9bcb969cadebace85cb2bdfd2ec7ab5184',
+      repo: 'weimin17.github.io/issues/1',
+      owner: 'weimin17',
+      admin: ['weimin17'],
+      id: '400dc09b9daa306877b3d29ccab8dcca',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

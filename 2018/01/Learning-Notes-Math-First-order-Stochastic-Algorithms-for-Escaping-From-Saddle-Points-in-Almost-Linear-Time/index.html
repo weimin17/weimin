@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Coding.png">
+  <link rel="mask-icon" href="/images/Coding.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Garamond:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://weimin17.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Learning Notes-Math] First-order Stochastic Algorithms for Escaping From Saddle Points in Almost Linear Time">
+<meta property="og:url" content="http://weimin17.github.io/2018/01/Learning-Notes-Math-First-order-Stochastic-Algorithms-for-Escaping-From-Saddle-Points-in-Almost-Linear-Time/index.html">
+<meta property="og:site_name" content="A DL&#x2F;ML Learner">
+<meta property="og:description" content="Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. A">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-01-09T01:30:00.000Z">
+<meta property="article:modified_time" content="2018-01-09T02:03:44.000Z">
+<meta property="article:author" content="weimin17">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://weimin17.github.io/2018/01/Learning-Notes-Math-First-order-Stochastic-Algorithms-for-Escaping-From-Saddle-Points-in-Almost-Linear-Time/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>[Learning Notes-Math] First-order Stochastic Algorithms for Escaping From Saddle Points in Almost Linear Time | A DL/ML Learner</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-156005782-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A DL/ML Learner</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Train like a beast.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2018/01/Learning-Notes-Math-First-order-Stochastic-Algorithms-for-Escaping-From-Saddle-Points-in-Almost-Linear-Time/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin17">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Learning Notes-Math] First-order Stochastic Algorithms for Escaping From Saddle Points in Almost Linear Time
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-01-08 20:30:00 / Modified: 21:03:44" itemprop="dateCreated datePublished" datetime="2018-01-08T20:30:00-05:00">2018-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning Notes</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><code>Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. And if there are anything wrong, please feel free to drop me an Email to correct me. I would appreciate your correction.</code></p>
+<p><a href="https://arxiv.org/abs/1711.01944" target="_blank" rel="noopener">First-order Stochastic Algorithms for Escaping From Saddle Points in Almost Linear Time</a></p>
+<a id="more"></a>
+<p> This paper is well organized, and the proof is rigorous, which requires very solid mathematical background. Here are my understanding and thoughts, if there is any misunderstanding, please correct me with no hesitance.  </p>
+<h2 id="Understanding-based-on-paper"><a href="#Understanding-based-on-paper" class="headerlink" title="Understanding based on paper:"></a>Understanding based on paper:</h2><p><strong>1.The Problem solved in the paper</strong></p>
+<p>The paper proposes a noise-adding first-order stochastic algorithm, helping extract the negative curvature from the Hessian matrix, for finding a nearly second-order stationary point x. – Escaping from saddle points in linear time.</p>
+<p><strong>2.Main challenge:</strong></p>
+<p>On one hand, first-order information - some variants of SGD by adding isotropic noise helps to escape from a saddle point, but they suffer from a polynomial time complexity, which renders them not practical for optimizing deep neural networks with millions of parameters.<br>On the other hand, second-order information carried by Hessian have some improvements, however, the rigorous analysis of algorithms using noisy approximation for calculating the Hessian-vector product remains unsolved. </p>
+<p><strong>3.Paper’s logical framework:</strong></p>
+<p>The proof in second part “2. Preliminaries” is easy to understand.<br>The Lemma 1 establishes that the objective value of  or  is less than that of  by a sufficient amount, which makes it possible to escape from the saddle point . The key of proof in Appendix B, is utilizing L2-Lipschitz Continuous Hessian.</p>
+<p>The Lemma 2 guarantees that  satisfies a negative curvature of  for a sufficiently large with high probability. </p>
+<p>Part 3: “3. Extracting Negative Curvature From Noise” is core of the paper, which analyzes a first-order procedure for computing a negative curvature  that satisfies a negative curvature of . </p>
+<p>The Lemma 3 - NEON can find a negative curvature of  with high probability at any point whose Hessian has a negative eigen-value less enough. The proof in this part is very interesting, and I understand a majority of the proof, but there still some parts that confuse me. </p>
+<p>Part 4: “4. First-order Algorithms for Stochastic Non-Convex Optimization”, present several first-order algorithms for solving the stochastic non-convex optimization problem with second-order convergence guarantee.</p>
+<p>The logic of Theorem 2 and 3, which are based on above preliminaries and lemma, are rigorous, but most of the part is not so hard to understand.</p>
+<h2 id="My-thoughts-and-understanding"><a href="#My-thoughts-and-understanding" class="headerlink" title="My thoughts and understanding:"></a>My thoughts and understanding:</h2><p>This paper requires solid mathematical background, and I am satisfied with the proof, though some parts still confuse me. I am high-motivated in the mathematical proof. Some thoughts:</p>
+<ol>
+<li>This paper is working on SGD, which is a popular choice of algorithms of solving  in deep learning. Gradient is for loss function, and there are many improved loss functions, like rectified linear units (ReLU), leaky ReLU, gated linear units (GLU) and exponential linear unit (ELU), which solve problems of (1) computing expensive and (2) gradient dying in some points. So there might be a new perspective – proposing a practical and innovate loss function - for solving the problem.</li>
+<li>The NEON proposed in this paper is inspired by the perturbed gradient descent (PGD) method and its connection with the Power method. When studying this paper, I reviewed another paper: “Accelerated Methods for Non-Convex Optimization” by Y. Carmon, which is in the spirit of the techniques that underlie accelerated gradient descent (AGD). In future study, we could also try to extend AGD in our method.</li>
+<li>In deep neuron network, when the network is very “deep”, two problems become obvious: 1) vanishing/exploding gradient causes it’s hard to convergence; 2) the accuracy drops quickly. However, a framework named residual learning (ResNet) [He et.al. “Deep Residual Learning for Image Recognition”] helps easier to optimize, and can gain accuracy from considerably increased depth. The core idea of ResNet is to learn a relatively easier function instead of learning a complicated and rigorous function which leads to computational complexity. Is it possible to propose a relatively easier noisy-adding first-order method for escaping from saddle points without considering Hessian-vector product in non-convex optimization (or only considering limited parts)?<!--more--></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Math/" rel="tag"># Math</a>
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/11/Deep-Learning-Warehouse/" rel="prev" title="Deep Learning Warehouse">
+      <i class="fa fa-chevron-left"></i> Deep Learning Warehouse
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/01/Learning-Notes-Velocity-Optimization-of-Pure-Electric-Vehicles-with-Traffic-Dynamics-Consideration/" rel="next" title="[Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration">
+      [Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Understanding-based-on-paper"><span class="nav-number">1.</span> <span class="nav-text">Understanding based on paper:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#My-thoughts-and-understanding"><span class="nav-number">2.</span> <span class="nav-text">My thoughts and understanding:</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="weimin17"
+      src="/images/avatar_idea.jpeg">
+  <p class="site-author-name" itemprop="name">weimin17</p>
+  <div class="site-description" itemprop="description">DL/ML Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/weimin17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weimin17" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">weimin17</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '54ab485ae91fc57bf25e',
+      clientSecret: '98349a9bcb969cadebace85cb2bdfd2ec7ab5184',
+      repo: 'weimin17.github.io/issues/1',
+      owner: 'weimin17',
+      admin: ['weimin17'],
+      id: '366835cdd6ac31a41c3e7fbab88794a2',
+        language: 'en',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
