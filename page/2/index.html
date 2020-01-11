@@ -201,7 +201,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Encoder-Decoder-Model/">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/11/Learning-Notes-Convolutional-LSTM-Network-A-Machine-Learning-Approach-for-Precipitation-Nowcasting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_idea.jpeg">
@@ -215,7 +215,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2017/10/Deep-Learning-Encoder-Decoder-Model/" class="post-title-link" itemprop="url">[Deep Learning] Encoder-Decoder Model</a>
+            <a href="/2017/11/Learning-Notes-Convolutional-LSTM-Network-A-Machine-Learning-Approach-for-Precipitation-Nowcasting/" class="post-title-link" itemprop="url">[Learning Notes] Convolutional LSTM Network: A Machine Learning Approach for Precipitation Nowcasting</a>
         </h1>
 
         <div class="post-meta">
@@ -225,757 +225,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-10-03 20:42:00" itemprop="dateCreated datePublished" datetime="2017-10-03T20:42:00-04:00">2017-10-03</time>
+              <time title="Created: 2017-11-06 20:47:00" itemprop="dateCreated datePublished" datetime="2017-11-06T20:47:00-05:00">2017-11-06</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-11-23 20:43:31" itemprop="dateModified" datetime="2017-11-23T20:43:31-05:00">2017-11-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="AutoEncoder"><a href="#AutoEncoder" class="headerlink" title="AutoEncoder"></a>AutoEncoder</h2><p>可參考<a href="https://www.youtube.com/watch?v=Tk5B4seA-AU&t=247s" target="_blank" rel="noopener">李宏毅前三分鍾</a>，以及<br>3分鍾快速介紹：<a href="https://www.youtube.com/watch?v=s96mYcicbpE" target="_blank" rel="noopener">Autoencoders - Ep. 10 (Deep Learning SIMPLIFIED)</a><br>Unsupervised Learning, 只有sources，但我們沒有參照輸出後具體的東西。以image爲例，將image輸入，假如原來是28×28維，我們可以將其降維到30維(encoder)。但是我們不知道這降維效果如何，我們可以嘗試將其再還原回原來狀態(decoder), 使其還原後跟原來的狀態的誤差很小。通過這個操作，我們可以將高緯度壓縮成低緯度，並盡量保留足夠多有價值的信息。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/10/Deep-Learning-Encoder-Decoder-Model/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Learning-Notes-Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/Learning-Notes-Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset/" class="post-title-link" itemprop="url">[Learning Notes] Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset </a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-27 01:05:00" itemprop="dateCreated datePublished" datetime="2017-09-27T01:05:00-04:00">2017-09-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-10-16 13:34:12" itemprop="dateModified" datetime="2017-10-16T13:34:12-04:00">2017-10-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning Notes</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>背景：<br>在足够大的数据集上训练动作分类网络，当应用于不同的时间任务或数据集时，性能将是否会得到类似的提升，这是视频领域的open question。 <strong>构建视频数据集的挑战意味着，大多数用于动作识别的人口基准很小，大约有10k个视频</strong>。在本文中，我们的目标是使用新的Kinetics Dataset视频数据集[16]来提供这个问题的答案，该数据集比以前的数据集HMDB-51 [18]和UCF-101 [27]大两个数量级。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/Learning-Notes-Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Deep-Learning-Kernel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/Deep-Learning-Kernel/" class="post-title-link" itemprop="url">[Deep Learning] Kernel</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-27 00:59:00" itemprop="dateCreated datePublished" datetime="2017-09-27T00:59:00-04:00">2017-09-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-10-16 13:51:19" itemprop="dateModified" datetime="2017-10-16T13:51:19-04:00">2017-10-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Briefly speaking, a kernel is a shortcut that helps us do certain calculation faster which otherwise would involve computations in higher dimensional space.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/Deep-Learning-Kernel/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Learning-Notes-CONVOLUTIONAL-SEQUENCE-TO-SEQUENCE-LEARNING/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/Learning-Notes-CONVOLUTIONAL-SEQUENCE-TO-SEQUENCE-LEARNING/" class="post-title-link" itemprop="url">[Learning Notes]CONVOLUTIONAL SEQUENCE TO SEQUENCE LEARNING</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-27 00:55:00" itemprop="dateCreated datePublished" datetime="2017-09-27T00:55:00-04:00">2017-09-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-10-16 13:44:57" itemprop="dateModified" datetime="2017-10-16T13:44:57-04:00">2017-10-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning Notes</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>| 论文(<a href="https://arxiv.org/pdf/1705.03122.pdf" target="_blank" rel="noopener">Arxiv</a>)     | Blog Post(<a href="https://code.facebook.com/posts/1978007565818999/a-novel-approach-to-neural-machine-translation/" target="_blank" rel="noopener">FAIR</a>) |  Code(<a href="https://github.com/facebookresearch/fairseq" target="_blank" rel="noopener">Github</a>)   |</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/Learning-Notes-CONVOLUTIONAL-SEQUENCE-TO-SEQUENCE-LEARNING/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Deep-Learning-Recurrent-Neural-Networks-RNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/Deep-Learning-Recurrent-Neural-Networks-RNN/" class="post-title-link" itemprop="url">[Deep Learning] Recurrent Neural Networks - RNN</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-25 20:40:00" itemprop="dateCreated datePublished" datetime="2017-09-25T20:40:00-04:00">2017-09-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-11-23 20:41:52" itemprop="dateModified" datetime="2017-11-23T20:41:52-05:00">2017-11-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Blog-English-version"><a href="#Blog-English-version" class="headerlink" title="Blog - English version"></a>Blog - English version</h1><p>Reference:<br><a href="http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/" target="_blank" rel="noopener">wildML-RNN</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/Deep-Learning-Recurrent-Neural-Networks-RNN/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version2/" class="post-title-link" itemprop="url">Implement The Perceptron Algorithm in Python-version2</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-19 02:21:00" itemprop="dateCreated datePublished" datetime="2017-09-19T02:21:00-04:00">2017-09-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-09-27 01:37:01" itemprop="dateModified" datetime="2017-09-27T01:37:01-04:00">2017-09-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="CIS731-HW1-The-Perceptron-Model-amp-Winsorization"><a href="#CIS731-HW1-The-Perceptron-Model-amp-Winsorization" class="headerlink" title="CIS731: HW1-The Perceptron Model &amp; Winsorization"></a>CIS731: HW1-The Perceptron Model &amp; Winsorization</h1><p>HW1: Explore whether Winsorizing (replacing extremely high values by predetermined upper/lower bounds) can improve the accuracy or computational effort of a single-node classification algorithm (e.g., perceptron), experimenting with any non-trivial two-class data set.</p>
-<p>This homework contains three parts: <br /><br>Part1: Algorithm Description<br /><br>Part2: Codes and Results<br /><br>Part3: The complete code (in “HW1_Perceptron.py”)</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version2/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Numpy%E5%BA%94%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/Numpy%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">Numpy应用</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2017-09-17 16:41:00 / Modified: 16:59:22" itemprop="dateCreated datePublished" datetime="2017-09-17T16:41:00-04:00">2017-09-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>In this blog, you will practice your coding skill in Python with NumPy package. The goal of this blog is to help you get familiar with NumPy functions and write program in Python.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/Numpy%E5%BA%94%E7%94%A8/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/%E7%AC%94%E8%AE%B0A-New-Representation-of-Skeleton-Sequences-for-3D-Action-Recognition/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/%E7%AC%94%E8%AE%B0A-New-Representation-of-Skeleton-Sequences-for-3D-Action-Recognition/" class="post-title-link" itemprop="url">[Learning notes] A New Representation of Skeleton Sequences for 3D Action Recognition</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-16 23:32:00" itemprop="dateCreated datePublished" datetime="2017-09-16T23:32:00-04:00">2017-09-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-10-16 13:47:26" itemprop="dateModified" datetime="2017-10-16T13:47:26-04:00">2017-10-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning Notes</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>总结：<br><a href="https://arxiv.org/abs/1703.03492" target="_blank" rel="noopener">A New Representation of Skeleton Sequences for 3D Action Recognition</a><br>基于 skeleton sequences的3D动作识别</p>
-<p>本文的主要贡献总结<br> （1）我们提出将每个骨架序列变换为新的表示，即三个剪辑，以通过使用深层CNN来从帧图像学习层次特征来允许对骨架序列的全局长期时间建模。 （2）我们介绍一个MTLN来处理所生成剪辑中帧的所有CNN特征，从而了解骨架序列的空间结构和时间信息。 MTLN通过利用生成的剪辑的不同帧之间的内在关系来提高性能。 我们的实验结果表明，MTLN的性能优于并置或汇聚帧的特征（见第4.3节）。 （3）提出的方法在三个骨架数据集上实现了最先进的性能，包括大型NTU RGB + D数据集[37]。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/%E7%AC%94%E8%AE%B0A-New-Representation-of-Skeleton-Sequences-for-3D-Action-Recognition/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version1/" class="post-title-link" itemprop="url">Implement The Perceptron Algorithm in Python-version1</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-16 22:59:00" itemprop="dateCreated datePublished" datetime="2017-09-16T22:59:00-04:00">2017-09-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-09-19 02:21:17" itemprop="dateModified" datetime="2017-09-19T02:21:17-04:00">2017-09-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>This blog contains two part:<br>Part1: Codes Description<br>Part2: The complete code</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Learning-Notes-A-New-Representation-of-Skeleton-Sequences-for-3D-Action-Recognition/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/Learning-Notes-A-New-Representation-of-Skeleton-Sequences-for-3D-Action-Recognition/" class="post-title-link" itemprop="url">[Learning Notes]A New Representation of Skeleton Sequences for 3D Action Recognition</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-16 20:52:00" itemprop="dateCreated datePublished" datetime="2017-09-16T20:52:00-04:00">2017-09-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-11-23 20:53:24" itemprop="dateModified" datetime="2017-11-23T20:53:24-05:00">2017-11-23</time>
+                <time title="Modified: 2017-11-23 20:49:17" itemprop="dateModified" datetime="2017-11-23T20:49:17-05:00">2017-11-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1006,11 +263,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>总结：<br><a href="https://arxiv.org/abs/1703.03492" target="_blank" rel="noopener">A New Representation of Skeleton Sequences for 3D Action Recognition</a><br>基于 skeleton sequences的3D动作识别</p>
-<p>本文的主要贡献总结<br> （1）我们提出将每个骨架序列变换为新的表示，即三个剪辑，以通过使用深层CNN来从帧图像学习层次特征来允许对骨架序列的全局长期时间建模。 （2）我们介绍一个MTLN来处理所生成剪辑中帧的所有CNN特征，从而了解骨架序列的空间结构和时间信息。 MTLN通过利用生成的剪辑的不同帧之间的内在关系来提高性能。 我们的实验结果表明，MTLN的性能优于并置或汇聚帧的特征（见第4.3节）。 （3）提出的方法在三个骨架数据集上实现了最先进的性能，包括大型NTU RGB + D数据集[37]。</p>
+          <p><a href="https://arxiv.org/pdf/1506.04214.pdf" target="_blank" rel="noopener">Arxiv</a></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2017/09/Learning-Notes-A-New-Representation-of-Skeleton-Sequences-for-3D-Action-Recognition/#more" rel="contents">
+              <a class="btn" href="/2017/11/Learning-Notes-Convolutional-LSTM-Network-A-Machine-Learning-Approach-for-Precipitation-Nowcasting/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1034,7 +290,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Mac-Using-Github-Hexo-to-build-personal-blog-2/">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/11/Un-Learning-Notes-End-to-end-Concept-Word-Detection-for-Video-Captioning-Retrieval-and-Question-Answeringtitled/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_idea.jpeg">
@@ -1048,7 +304,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2017/09/Mac-Using-Github-Hexo-to-build-personal-blog-2/" class="post-title-link" itemprop="url">Mac: Using Github+Hexo to build personal blog(2)</a>
+            <a href="/2017/11/Un-Learning-Notes-End-to-end-Concept-Word-Detection-for-Video-Captioning-Retrieval-and-Question-Answeringtitled/" class="post-title-link" itemprop="url">Un[Learning Notes] End-to-end Concept Word Detection for Video Captioning, Retrieval and Question Answeringtitled</a>
         </h1>
 
         <div class="post-meta">
@@ -1058,14 +314,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-09-10 06:56:00" itemprop="dateCreated datePublished" datetime="2017-09-10T06:56:00-04:00">2017-09-10</time>
+              <time title="Created: 2017-11-03 20:45:00" itemprop="dateCreated datePublished" datetime="2017-11-03T20:45:00-04:00">2017-11-03</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-10 16:46:44" itemprop="dateModified" datetime="2020-01-10T16:46:44-05:00">2020-01-10</time>
+                <time title="Modified: 2017-11-23 20:46:46" itemprop="dateModified" datetime="2017-11-23T20:46:46-05:00">2017-11-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1073,8 +329,14 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Skills/" itemprop="url" rel="index">
-                    <span itemprop="name">Computer Skills</span>
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/Learning-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning Notes</span>
                   </a>
                 </span>
             </span>
@@ -1090,10 +352,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在上一篇博客中，我介绍了在Mac环境下如何利用GitHub和Hexo搭建个人博客，以及一些基本的操作。这篇博文承接上一篇，介绍hexo进阶使用，更多功能，仍待学习。</p>
+          <p><a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Yu_End-To-End_Concept_Word_CVPR_2017_paper.pdf" target="_blank" rel="noopener">原文地址End-to-end Concept Word Detection for Video Captioning, Retrieval and Question Answering</a></p>
+<p>此文章为初步学习Video Question &amp; Answering所读。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2017/09/Mac-Using-Github-Hexo-to-build-personal-blog-2/#more" rel="contents">
+              <a class="btn" href="/2017/11/Un-Learning-Notes-End-to-end-Concept-Word-Detection-for-Video-Captioning-Retrieval-and-Question-Answeringtitled/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1117,7 +380,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/Mac-Github-Hexo-to-build-personal-blog/">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Embedding/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_idea.jpeg">
@@ -1131,7 +394,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2017/09/Mac-Github-Hexo-to-build-personal-blog/" class="post-title-link" itemprop="url">Mac: Using Github+Hexo to build personal blog(1)</a>
+            <a href="/2017/10/Deep-Learning-Embedding/" class="post-title-link" itemprop="url">[Deep Learning] Embedding</a>
         </h1>
 
         <div class="post-meta">
@@ -1141,14 +404,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-09-09 21:29:00" itemprop="dateCreated datePublished" datetime="2017-09-09T21:29:00-04:00">2017-09-09</time>
+              <time title="Created: 2017-10-30 20:37:00" itemprop="dateCreated datePublished" datetime="2017-10-30T20:37:00-04:00">2017-10-30</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-11 13:35:43" itemprop="dateModified" datetime="2020-01-11T13:35:43-05:00">2020-01-11</time>
+                <time title="Modified: 2017-11-23 20:38:59" itemprop="dateModified" datetime="2017-11-23T20:38:59-05:00">2017-11-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1156,8 +419,8 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Skills/" itemprop="url" rel="index">
-                    <span itemprop="name">Computer Skills</span>
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
                   </a>
                 </span>
             </span>
@@ -1173,10 +436,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本文介绍了在Mac环境下如何利用GitHub和Hexo搭建个人博客，网上有不少教程已经过时，或者有些坑。本人花了点时间搭建好第一个个人主页，决定将自己调试流程总结如下。主要包括：Mac下安装、配置Github+Hexo的方法，以及如何利用其构建个人主页。</p>
+          <p>An embedding maps an input representation, such as a word or sentence, into a vector. A popular type of embedding are word embeddings such as <a href="http://www.wildml.com/deep-learning-glossary/#word2vec" target="_blank" rel="noopener">word2vec</a> or <a href="http://www.wildml.com/deep-learning-glossary/#glove" target="_blank" rel="noopener">GloVe</a>. We can also embed sentences, paragraphs or images. For example, by mapping images and their textual descriptions into a common embedding space and minimizing the distance between them, we can match labels with images. Embeddings can be learned explicitly, such as in word2vec, or as part of a supervised task, such as Sentiment Analysis. Often, the input layer of a network is initialized with pre-trained embeddings, which are then fine-tuned to the task at hand.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2017/09/Mac-Github-Hexo-to-build-personal-blog/#more" rel="contents">
+              <a class="btn" href="/2017/10/Deep-Learning-Embedding/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1200,7 +463,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/09/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Residual-Connect/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_idea.jpeg">
@@ -1214,7 +477,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2017/09/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2017/10/Deep-Learning-Residual-Connect/" class="post-title-link" itemprop="url">[Deep Learning] Residual Connect</a>
         </h1>
 
         <div class="post-meta">
@@ -1224,14 +487,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-09-09 21:28:00" itemprop="dateCreated datePublished" datetime="2017-09-09T21:28:00-04:00">2017-09-09</time>
+              <time title="Created: 2017-10-30 20:36:00" itemprop="dateCreated datePublished" datetime="2017-10-30T20:36:00-04:00">2017-10-30</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-09-10 08:23:43" itemprop="dateModified" datetime="2017-09-10T08:23:43-04:00">2017-09-10</time>
+                <time title="Modified: 2017-11-23 20:37:20" itemprop="dateModified" datetime="2017-11-23T20:37:20-05:00">2017-11-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1239,8 +502,8 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer-Skills/" itemprop="url" rel="index">
-                    <span itemprop="name">Computer Skills</span>
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
                   </a>
                 </span>
             </span>
@@ -1256,10 +519,509 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+          <p>[2]<a href="https://arxiv.org/abs/1512.03385" target="_blank" rel="noopener">He et.al. “Deep Residual Learning for Image Recognition”</a></p>
+<p>這篇文章可以跟VGG文章一起看，VGG是暴力增加網絡層數，使得訓練效果達到很棒。但是需要很長的訓練時間。而本文提出的ResNet，構造了殘差方式，使得訓練速度、效果都達到很好的狀態。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2017/09/hello-world/#more" rel="contents">
+              <a class="btn" href="/2017/10/Deep-Learning-Residual-Connect/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Gated-Linear-Unit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/Deep-Learning-Gated-Linear-Unit/" class="post-title-link" itemprop="url">[Deep Learning] Gated Linear Unit</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-30 20:34:00" itemprop="dateCreated datePublished" datetime="2017-10-30T20:34:00-04:00">2017-10-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-11-23 20:36:19" itemprop="dateModified" datetime="2017-11-23T20:36:19-05:00">2017-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>[1]<a href="https://arxiv.org/abs/1612.08083" target="_blank" rel="noopener">Daphine et.al “Language Modeling with Gated Convolutional Networks” 2016</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/10/Deep-Learning-Gated-Linear-Unit/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Attention-Mechanism/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/Deep-Learning-Attention-Mechanism/" class="post-title-link" itemprop="url">[Deep Learning] Attention Mechanism</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-23 20:29:00" itemprop="dateCreated datePublished" datetime="2017-10-23T20:29:00-04:00">2017-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-11-23 20:34:08" itemprop="dateModified" datetime="2017-11-23T20:34:08-05:00">2017-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>首先要知道什么是attention。這裏兩篇博客，一篇宏觀介紹<a href="https://machinelearningmastery.com/attention-long-short-term-memory-recurrent-neural-networks/" target="_blank" rel="noopener">Attention in Long Short-Term Memory Recurrent Neural Networks</a>，一篇從較細角度介紹<a href="http://www.wildml.com/2016/01/attention-and-memory-in-deep-learning-and-nlp/" target="_blank" rel="noopener">Attention and Memory in Deep Learning and NLP</a>。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/10/Deep-Learning-Attention-Mechanism/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Extensions-of-Recurrent-Neural-Networks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/Deep-Learning-Extensions-of-Recurrent-Neural-Networks/" class="post-title-link" itemprop="url">[Deep Learning] Extensions of Recurrent Neural Networks</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-23 20:27:00" itemprop="dateCreated datePublished" datetime="2017-10-23T20:27:00-04:00">2017-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-11-23 20:28:59" itemprop="dateModified" datetime="2017-11-23T20:28:59-05:00">2017-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>This Blog shows four augment RNNs, that these “augmented RNNs” will have an important role to play in extending deep learning’s capabilities over the coming years.: </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/10/Deep-Learning-Extensions-of-Recurrent-Neural-Networks/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Seq2Seq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/Deep-Learning-Seq2Seq/" class="post-title-link" itemprop="url">[Deep Learning] Seq2Seq</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-23 20:25:00" itemprop="dateCreated datePublished" datetime="2017-10-23T20:25:00-04:00">2017-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-11-23 20:27:33" itemprop="dateModified" datetime="2017-11-23T20:27:33-05:00">2017-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>A Sequence-to-Sequence model reads a sequence (such as a sentence) as an input and produces another sequence as an output. It differs from a standard RNN in that the input sequence is completely read before the network starts producing any output. Typically, seq2seq models are implemented using two RNNs, functioning as <strong>encoders and decoders</strong>. </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/10/Deep-Learning-Seq2Seq/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Convolutional-Neural-Networks-CNN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/Deep-Learning-Convolutional-Neural-Networks-CNN/" class="post-title-link" itemprop="url">[Deep Learning] Convolutional Neural Networks - CNN</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-23 20:12:00" itemprop="dateCreated datePublished" datetime="2017-10-23T20:12:00-04:00">2017-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-11-23 20:23:28" itemprop="dateModified" datetime="2017-11-23T20:23:28-05:00">2017-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="https://www.youtube.com/watch?v=FrKWiRv254g&index=20&list=PLJV_el3uVTsPy9oCRY30oBPNLCo89yu49" target="_blank" rel="noopener">Convolutional Neural Network_Hongyi Li </a>清晰易懂。前28分钟，讲CNN很详细。36分钟开始，讲What does CNN learn.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/10/Deep-Learning-Convolutional-Neural-Networks-CNN/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/10/Deep-Learning-Long-Short-Term-Memory-LSTM-Networks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/Deep-Learning-Long-Short-Term-Memory-LSTM-Networks/" class="post-title-link" itemprop="url">[Deep Learning] Long Short Term Memory - (LSTM) Networks</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-05 20:39:00" itemprop="dateCreated datePublished" datetime="2017-10-05T20:39:00-04:00">2017-10-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-11-23 20:40:17" itemprop="dateModified" datetime="2017-11-23T20:40:17-05:00">2017-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Videos"><a href="#Videos" class="headerlink" title="Videos"></a>Videos</h1><p><a href="https://www.youtube.com/watch?v=xCGidAeyS4M&index=35&list=PLJV_el3uVTsPy9oCRY30oBPNLCo89yu49" target="_blank" rel="noopener">Recurrent Neural Network, Hung-yi Lee, NTU</a>从18：00开始，LSTM。  包含LSTM实例，很棒。<br><a href="https://www.youtube.com/watch?v=rTqmWlnwz_0&index=36&list=PLJV_el3uVTsPy9oCRY30oBPNLCo89yu49" target="_blank" rel="noopener">Recurrent Neural Network (Part II), Hung-yi Lee, NTU</a>讲如何训练LSTM，待看。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/10/Deep-Learning-Long-Short-Term-Memory-LSTM-Networks/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1283,7 +1045,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
