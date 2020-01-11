@@ -1,54 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/Coding.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/Coding.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/Coding.png">
-  <link rel="mask-icon" href="/images/Coding.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
 
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
-  <script src="/lib/pace/pace.min.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="weimin" />
 
 
-<script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    hostname: new URL('http://weimin17.github.io').hostname,
-    root: '/',
-    scheme: 'Gemini',
-    version: '7.7.0',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
-  };
-</script>
 
-  <meta name="description" content="Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. A">
+<meta name="description" content="Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. A">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control">
 <meta property="og:url" content="http://weimin17.github.io/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/index.html">
@@ -61,198 +28,293 @@
 <meta property="article:tag" content="Math">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://weimin17.github.io/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/">
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: false,
-    isPost: true
-  };
+    <link rel="alternate" href="/atom.xml" title="A DL/ML Learner" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/Coding.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-center-atom.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>[Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control | A DL/ML Learner</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
 </script>
 
-  <title>[Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control | A DL/ML Learner</title>
-  
-    <script>
-      function sendPageView() {
-        if (CONFIG.hostname !== location.hostname) return;
-        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
-        localStorage.setItem('uid', uid);
-        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
-          v  : 1,
-          tid: 'UA-156005782-1',
-          cid: uid,
-          t  : 'pageview',
-          dp : encodeURIComponent(location.pathname)
-        }));
-      }
-      document.addEventListener('pjax:complete', sendPageView);
-      sendPageView();
-    </script>
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
 
 
 
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar_idea.jpeg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">weimin</a></h1>
+        </hgroup>
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
+        
+        <p class="header-subtitle">Train like a beast.</p>
+        
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
-
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">A DL/ML Learner</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-        <p class="site-subtitle">Train like a beast.</p>
-  </div>
-
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-</div>
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="true" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
 
 
-<nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>About Me</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">Homepage</a></li>
+                        
+                            <li><a href="/archives/">Archives</a></li>
+                        
+                            <li><a href="/tags/">Tags</a></li>
+                        
+                            <li><a href="/about/">About Me</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:insistweiminlv@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/weimin17" target="_blank" rel="noopener" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Action-Recognition/" rel="tag">Action Recognition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/" rel="tag">LSTM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learning-Notes/" rel="tag">Learning Notes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neuron-Network/" rel="tag">Neuron Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neuron-Netwrok/" rel="tag">Neuron Netwrok</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy/" rel="tag">Numpy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optiminzation/" rel="tag">Optiminzation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Perceptron/" rel="tag">Perceptron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reading-List/" rel="tag">Reading List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Video-QA/" rel="tag">Video QA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VideoQA/" rel="tag">VideoQA</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://github.com/weimin17/" target="_blank" rel="noopener">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/" target="_blank" rel="noopener">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
 
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">16</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
-
-  </li>
-  </ul>
-
-</nav>
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content">
-            
-
-  <div class="posts-expand">
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          [Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2018-01-08 20:59:00 / Modified: 21:03:12" itemprop="dateCreated datePublished" datetime="2018-01-08T20:59:00-05:00">2018-01-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning Notes</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">Train like a monster.</div>
+                </section>
+                
+            </div>
         </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">weimin</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar_idea.jpeg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">weimin</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Train like a beast.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">Homepage</a></li>
+                
+                    <li><a href="/archives/">Archives</a></li>
+                
+                    <li><a href="/tags/">Tags</a></li>
+                
+                    <li><a href="/about/">About Me</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:insistweiminlv@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/weimin17" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+</nav>
+      <div class="body-wrap"><article id="post-Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/" class="article-date">
+      <time datetime="2018-01-09T01:59:00.000Z" itemprop="datePublished">2018-01-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control
+    </h1>
+  
+
       </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Learning-Notes/">Learning Notes</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
         <p><code>Recently, I was reading some papers including cloud computing, HPC, Optimization, IoT, etc. And I wrote my thoughts. Because I am not familiar with these areas, so the understanding might be simple. And if there are anything wrong, please feel free to drop me an Email to correct me. I would appreciate your correction.</code></p>
 <p>In this blog, I would summary two papers, which were the achievement of the same professor. And the two paper requires a solid mathematical background.</p>
 <a id="more"></a>
@@ -271,256 +333,263 @@
 </ol>
 <h2 id="II-Paper-two"><a href="#II-Paper-two" class="headerlink" title="II.Paper two"></a>II.Paper two</h2><p>In the paper: “A Multi-Scale Spatiotemporal Perspective of Connected and Automated Vehicles: Applications and Wireless Networking”, you present a multi-scale spatiotemporal perspective of wireless communication technologies. I only briefly review that paper, the keyword “spatiotemporal perspective” attracts me. Maybe I can apply some deep learning techniques or statistical methods on processing spatiotemporal data, which might get some better results. My current research focuses on predicting high-dimensional telecommunications by proposing a novel model, considering both temporal and spatial factors, with one adding attention mechanism and the other adding dynamic filters. Maybe there is a good combination of these techniques and your research.</p>
 <!--more-->
+      
     </div>
-
     
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Math/" rel="tag"># Math</a>
-          </div>
-
-        
-  <div class="post-widgets">
-    <div class="wp_rating">
-      <div id="wpac-rating"></div>
-    </div>
   </div>
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2018/01/Learning-Notes-Velocity-Optimization-of-Pure-Electric-Vehicles-with-Traffic-Dynamics-Consideration/" rel="prev" title="[Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration">
-      <i class="fa fa-chevron-left"></i> [Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2018/10/LearningNotes-TieNet-Text-Image-Embedding-Network-for-Common-Thorax-Disease-Classification-and-Reporting-in-Chest-X-rays-2018CVPR/" rel="next" title="[LearningNotes]TieNet Text-Image Embedding Network for Common Thorax Disease Classification and Reporting in Chest X-rays(2018CVPR)">
-      [LearningNotes]TieNet Text-Image Embedding Network for Common Thorax Disease Classification and Reporting in Chest X-rays(2018CVPR) <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
+  
     
-  </article>
+    <div class="copyright">
+        <p><span>Title:</span><a href="/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/">[Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">weimin</a></p>
+        <p><span>Created:</span>2018-01-08, 20:59:00</p>
+        <p><span>Updated:</span>2018-01-08, 21:03:12</p>
+        <p>
+            <span>Full URL:</span><a class="post-url" href="/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/" title="[Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control">http://weimin17.github.io/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/</a>
+            <span class="copy-path" data-clipboard-text="From http://weimin17.github.io/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/　　By weimin" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/10/LearningNotes-TieNet-Text-Image-Embedding-Network-for-Common-Thorax-Disease-Classification-and-Reporting-in-Chest-X-rays-2018CVPR/">
+                    [LearningNotes]TieNet Text-Image Embedding Network for Common Thorax Disease Classification and Reporting in Chest X-rays(2018CVPR)
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/01/Learning-Notes-Velocity-Optimization-of-Pure-Electric-Vehicles-with-Traffic-Dynamics-Consideration/">
+                    [Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration
+                </a>
+            </div>
+        
+    </nav>
+
   
-  
-  
+</article>
 
-  </div>
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-Paper-one"><span class="toc-text">I.Paper one</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#II-Paper-two"><span class="toc-text">II.Paper two</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
 
 
-          </div>
-          
-    <div class="comments" id="gitalk-container"></div>
 
-<script>
-  window.addEventListener('tabs:register', () => {
-    let activeClass = CONFIG.comments.activeClass;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"[Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control　| A DL/ML Learner　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-Paper-one"><span class="nav-number">1.</span> <span class="nav-text">I.Paper one</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-Paper-two"><span class="nav-number">2.</span> <span class="nav-text">II.Paper two</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="weimin"
-      src="/images/avatar_idea.jpeg">
-  <p class="site-author-name" itemprop="name">weimin</p>
-  <div class="site-description" itemprop="description">DL/ML Blog</div>
+    
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://weimin17.github.io/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/';
+            this.page.identifier = '2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//weimin17.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
         
-          <span class="site-state-item-count">33</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">16</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/weimin17" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weimin17" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-      </span>
-  </div>
+            <a href="/2018/10/LearningNotes-TieNet-Text-Image-Embedding-Network-for-Common-Thorax-Disease-Classification-and-Reporting-in-Chest-X-rays-2018CVPR/" title="Pre: [LearningNotes]TieNet Text-Image Embedding Network for Common Thorax Disease Classification and Reporting in Chest X-rays(2018CVPR)">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
 
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
-
-      </div>
-
+        
+            <a href="/2018/01/Learning-Notes-Velocity-Optimization-of-Pure-Electric-Vehicles-with-Traffic-Dynamics-Consideration/" title="Next: [Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/12/Brief-Introductions-of-Selected-Research-Weimin-Lyu-Lv/">Brief Introductions of Selected Research | Littlekoala</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/LearningNotes-Deep-Visual-Semantic-Alignments-for-Generating-Image-Descriptions-2015CVPR/">[LearningNotes]Deep Visual-Semantic Alignments for Generating Image Descriptions(2015CVPR)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/LearningNotew-LearningNotes-Explainable-Prediction-of-Medical-Codes-from-Clinical-Text/">[LearningNotes][LearningNotes]Explainable Prediction of Medical Codes from Clinical Text</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/LearningNotes-TieNet-Text-Image-Embedding-Network-for-Common-Thorax-Disease-Classification-and-Reporting-in-Chest-X-rays-2018CVPR/">[LearningNotes]TieNet Text-Image Embedding Network for Common Thorax Disease Classification and Reporting in Chest X-rays(2018CVPR)</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/Learning-Notes-Math-Scheduling-with-Predictable-Link-Reliability-for-Wireless-Networked-Control/">[Learning Notes-Math] Scheduling with Predictable Link Reliability for Wireless Networked Control</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/Learning-Notes-Velocity-Optimization-of-Pure-Electric-Vehicles-with-Traffic-Dynamics-Consideration/">[Learning Notes] Velocity Optimization of Pure Electric Vehicles with Traffic Dynamics Consideration</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/Learning-Notes-Math-First-order-Stochastic-Algorithms-for-Escaping-From-Saddle-Points-in-Almost-Linear-Time/">[Learning Notes-Math] First-order Stochastic Algorithms for Escaping From Saddle Points in Almost Linear Time</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/Deep-Learning-Warehouse/">Deep Learning Warehouse</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/Reading-List-Visual-Question-and-Answering-Video-QA-Image-QA/">[Reading List] Visual Question and Answering (Video QA & Image QA)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/Learning-Notes-Sequence-to-sequence-Learning-with-Neural-Networks/">[Learning Notes] Sequence to sequence Learning with Neural Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/Learning-Notes-Convolutional-LSTM-Network-A-Machine-Learning-Approach-for-Precipitation-Nowcasting/">[Learning Notes] Convolutional LSTM Network: A Machine Learning Approach for Precipitation Nowcasting</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/Un-Learning-Notes-End-to-end-Concept-Word-Detection-for-Video-Captioning-Retrieval-and-Question-Answeringtitled/">Un[Learning Notes] End-to-end Concept Word Detection for Video Captioning, Retrieval and Question Answeringtitled</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/Deep-Learning-Embedding/">[Deep Learning] Embedding</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/Deep-Learning-Residual-Connect/">[Deep Learning] Residual Connect</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/Deep-Learning-Gated-Linear-Unit/">[Deep Learning] Gated Linear Unit</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/Deep-Learning-Attention-Mechanism/">[Deep Learning] Attention Mechanism</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/Deep-Learning-Extensions-of-Recurrent-Neural-Networks/">[Deep Learning] Extensions of Recurrent Neural Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/Deep-Learning-Seq2Seq/">[Deep Learning] Seq2Seq</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/Deep-Learning-Convolutional-Neural-Networks-CNN/">[Deep Learning] Convolutional Neural Networks - CNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/Deep-Learning-Long-Short-Term-Memory-LSTM-Networks/">[Deep Learning] Long Short Term Memory - (LSTM) Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/Deep-Learning-Encoder-Decoder-Model/">[Deep Learning] Encoder-Decoder Model</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/Learning-Notes-Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset/">[Learning Notes] Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset </a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/Deep-Learning-Kernel/">[Deep Learning] Kernel</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/Learning-Notes-CONVOLUTIONAL-SEQUENCE-TO-SEQUENCE-LEARNING/">[Learning Notes]CONVOLUTIONAL SEQUENCE TO SEQUENCE LEARNING</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/Deep-Learning-Recurrent-Neural-Networks-RNN/">[Deep Learning] Recurrent Neural Networks - RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version2/">Implement The Perceptron Algorithm in Python-version2</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/Numpy%E5%BA%94%E7%94%A8/">Numpy应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/%E7%AC%94%E8%AE%B0A-New-Representation-of-Skeleton-Sequences-for-3D-Action-Recognition/">[Learning notes] A New Representation of Skeleton Sequences for 3D Action Recognition</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/Implement-The-Perceptron-Algorithm-in-Python-version1/">Implement The Perceptron Algorithm in Python-version1</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/Learning-Notes-A-New-Representation-of-Skeleton-Sequences-for-3D-Action-Recognition/">[Learning Notes]A New Representation of Skeleton Sequences for 3D Action Recognition</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/Mac-Using-Github-Hexo-to-build-personal-blog-2/">Mac: Using Github+Hexo to build personal blog(2)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/Mac-Github-Hexo-to-build-personal-blog/">Mac: Using Github+Hexo to build personal blog(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/hello-world/">Hello World</a></li></ul>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
+
+    <script>
         
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">weimin</span>
+    </script>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
-  </div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
-  </div>
-
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2020 weimin
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
         
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    
+<script src="/js/GithubRepoWidget.js"></script>
+
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
 
 
 
 
 
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
 
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-  <script>
-  if (CONFIG.page.isPost) {
-    wpac_init = window.wpac_init || [];
-    wpac_init.push({
-      widget: 'Rating',
-      id: ,
-      el: 'wpac-rating',
-      color: 'fc6423'
-    });
-    (function() {
-      if ('WIDGETPACK_LOADED' in window) return;
-      WIDGETPACK_LOADED = true;
-      var mc = document.createElement('script');
-      mc.type = 'text/javascript';
-      mc.async = true;
-      mc.src = '//embed.widgetpack.com/widget.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
-    })();
-  }
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '54ab485ae91fc57bf25e',
-      clientSecret: '98349a9bcb969cadebace85cb2bdfd2ec7ab5184',
-      repo: 'weimin17.github.io',
-      owner: 'weimin17',
-      admin: ['weimin17'],
-      id: '7c3bd70a1cb1bad56a569dd23650261d',
-        language: 'en',
-      distractionFreeMode: true
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
 });
 </script>
 
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
 </body>
 </html>
