@@ -61,7 +61,7 @@
 <meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-11.png">
 <meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-21.png">
 <meta property="article:published_time" content="2020-04-14T02:38:00.000Z">
-<meta property="article:modified_time" content="2020-04-14T03:21:04.764Z">
+<meta property="article:modified_time" content="2020-04-14T03:28:45.694Z">
 <meta property="article:author" content="weimin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-1.png">
@@ -233,7 +233,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-04-13 22:38:00 / Modified: 23:21:04" itemprop="dateCreated datePublished" datetime="2020-04-13T22:38:00-04:00">2020-04-13</time>
+              <time title="Created: 2020-04-13 22:38:00 / Modified: 23:28:45" itemprop="dateCreated datePublished" datetime="2020-04-13T22:38:00-04:00">2020-04-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -300,8 +300,9 @@
 <h3 id="2-Machine"><a href="#2-Machine" class="headerlink" title="2. Machine"></a>2. Machine</h3><p>Framework （以supervised learning为例）<br>1]先准备一个包含成千上万function的function set（即models）<br>2]再根据training data，会有function input，function output，与真实的output比较，能知道function是好还是不好。<br>3]function set中的functions数量可能无穷尽，我们需要一个好的策略从众多function中挑选出最好的function $f^<em>$, 根据这个最好的$f^</em>$来预测结果：$f^*$（新图片）= 预测结果。</p>
 <p>总结而言：<br>step1：模型假设，选择模型框架（linear regression）<br>step2：模型评估，如何判断众多模型的好坏（loss function）<br>step3：模型优化，如何筛选最优的模型（gradient descent）</p>
 <h3 id="3-Scenario"><a href="#3-Scenario" class="headerlink" title="3. Scenario"></a>3. Scenario</h3><p><img src="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-21.png" alt="Alt text|500*400|center"><br>Supervised Learning：大量training data与ground truth labels<br>Semi-supervised Learning：少量有labeled data与大量unlabeled data<br>Transfer Learning：只有少量labeled data，但有大量不相关的data（can be both labeled and unlabeled），这些不相关的data能给我们的任务带来什么帮助。<br>Unsupervised Learning：只有unlabeled data，如根据已有图片生成新图片。<br>Reinforcement Learning：<br>    Supervised Learning-知道正确答案，learn from teacher<br>    Reinforcement Learning-没有正确答案，只知道最终的结果是好还是不好，但不知道哪里不好，然后从这些反馈的评价、结论中学习。learn from critics。<br>AlphaGo：结合了supervised learning（先从棋谱中学习）与reinforcement learning（两台机器互相下棋，从输赢结果继续学习）<br>关于不同的scenario理解，<a href="https://sakura-gh.github.io/ML-notes/ML-notes-html/1_Introduction.html" target="_blank" rel="noopener">这里</a>总结的很详细。</p>
-<p>$a = b + c$</p>
-<p>$$abc$$</p>
+<p>$ a = b + c $</p>
+<p>$$ abc $$</p>
+<p>\begin{equation}<br>abc<br>\end{equation}</p>
 
     </div>
 
