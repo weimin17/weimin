@@ -167,12 +167,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">7</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">8</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">33</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">34</span></a>
 
   </li>
   </ul>
@@ -197,6 +197,124 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2020/04/LeeMLNotes-P0-Introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_idea.jpeg">
+      <meta itemprop="name" content="weimin">
+      <meta itemprop="description" content="DL/ML Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A DL/ML Learner">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/LeeMLNotes-P0-Introduction/" class="post-title-link" itemprop="url">[LeeMLNotes]P0 Introduction</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-13 22:38:00 / Modified: 22:57:58" itemprop="dateCreated datePublished" datetime="2020-04-13T22:38:00-04:00">2020-04-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/LeeML/" itemprop="url" rel="index">
+                    <span itemprop="name">LeeML</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Words in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Words in article: </span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Learning Notes of <em>Machine Learning - Hung-yi Lee, NTU: <a href="https://www.youtube.com/watch?v=CXgbekl66jc&list=PLJV_el3uVTsPy9oCRY30oBPNLCo89yu49&index=1" target="_blank" rel="noopener">Lecture Video</a></em></p>
+<h3 id="1-What-is-Machine-Learning"><a href="#1-What-is-Machine-Learning" class="headerlink" title="1.What is Machine Learning"></a>1.What is Machine Learning</h3><p>Artificial Intelligence 是目标，Machine Learning是手段，Deep Learning 是Machine Learning的一种方法。<br><img src="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-1.png" alt="Alt text|400*300|center"></p>
+<h5 id="1-1-“Fake”-Artificial-Intelligence"><a href="#1-1-“Fake”-Artificial-Intelligence" class="headerlink" title="1.1 “Fake” Artificial Intelligence"></a>1.1 “Fake” Artificial Intelligence</h5><p>生物的行为取决于两件事：1）先天本能 2）后天学习。Machine Learning的先天本能相当于是人类提前设计好的规则，即hand-craft rules，机器根据这个提前设计好的规则去做事情，这并非真正的AI。比如说有很多chat-bot，输入“turn off the music”与“do not turn off the music”，机器只会根据提前设置好的关键字turn off来做出判断，结果是上述两种输入都导致相同的行为：turn off the music。</p>
+<p>hand-craft rules的缺点是，很难考虑到所有的可能性-这也就导致他没有办法超越他的创造者人类。他只能根据已有的规则做事情，遇到人类想不到的规则，机器就不知道该怎么办。<br>另一个例子，来自Yann Lecun的FB， 意思是如果拆解开所谓的智能机器人，内部是一堆IF命令，也就是提前设计好的hand-craft rules。</p>
+<p><img src="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-7.png" alt="Alt text|300*300|center"></p>
+<h5 id="1-2-Real-Artificial-Intelligence"><a href="#1-2-Real-Artificial-Intelligence" class="headerlink" title="1.2 Real Artificial Intelligence"></a>1.2 Real Artificial Intelligence</h5><p>真正的人工智能是让Machine 有后天学习的能力，而不仅仅是靠先天本能（hand-craft rules）。比如给他足够的图片资料学习，他学习后能识别出，新给一张图片，图片中是cat/dog/monket, etc。 </p>
+<p><img src="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-8.png" alt="Alt text|500*300|center"></p>
+<p>Technically speaking, Machine Learning是在寻找一个function，让机器具有一种能力：根据提供的资料（数据），机器寻找出我们需要的function。比如</p>
+<p>Speech recognition:</p>
+<p>$$\f（音频信号） = “How are you.”$$</p>
+<p>Image recognition:<br>    f（图片） = “cat”</p>
+<p><img src="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-11.png" alt="Alt text|300*300|center"></p>
+<h3 id="2-Machine"><a href="#2-Machine" class="headerlink" title="2. Machine"></a>2. Machine</h3><p>Framework （以supervised learning为例）</p>
+<p>1]先准备一个包含成千上万function的function set（即models）</p>
+<p>2]再根据training data，会有function input，function output，与真实的output比较，能知道function是好还是不好。</p>
+<p>3]function set中的functions数量可能无穷尽，我们需要一个好的策略从众多function中挑选出最好的function $f^<em>$, 根据这个最好的$f^</em>$来预测结果：$f^*$（新图片）= 预测结果。</p>
+<p>总结而言：</p>
+<p>step1：模型假设，选择模型框架（linear regression）</p>
+<p>step2：模型评估，如何判断众多模型的好坏（loss function）</p>
+<p>step3：模型优化，如何筛选最优的模型（gradient descent）</p>
+<h3 id="3-Scenario"><a href="#3-Scenario" class="headerlink" title="3. Scenario"></a>3. Scenario</h3><p><img src="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-21.png" alt="Alt text|500*400|center"><br>Supervised Learning：大量training data与ground truth labels</p>
+<p>Semi-supervised Learning：少量有labeled data与大量unlabeled data</p>
+<p>Transfer Learning：只有少量labeled data，但有大量不相关的data（can be both labeled and unlabeled），这些不相关的data能给我们的任务带来什么帮助。</p>
+<p>Unsupervised Learning：只有unlabeled data，如根据已有图片生成新图片。</p>
+<p>Reinforcement Learning：</p>
+<pre><code>Supervised Learning-知道正确答案，learn from teacher
+
+Reinforcement Learning-没有正确答案，只知道最终的结果是好还是不好，但不知道哪里不好，然后从这些反馈的评价、结论中学习。learn from critics。</code></pre><p>AlphaGo：结合了supervised learning（先从棋谱中学习）与reinforcement learning（两台机器互相下棋，从输赢结果继续学习）</p>
+<p>关于不同的scenario理解，<a href="https://sakura-gh.github.io/ML-notes/ML-notes-html/1_Introduction.html" target="_blank" rel="noopener">这里</a>总结的很详细。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -997,104 +1115,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://weimin17.github.io/2017/11/Learning-Notes-Sequence-to-sequence-Learning-with-Neural-Networks/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_idea.jpeg">
-      <meta itemprop="name" content="weimin">
-      <meta itemprop="description" content="DL/ML Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A DL/ML Learner">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/11/Learning-Notes-Sequence-to-sequence-Learning-with-Neural-Networks/" class="post-title-link" itemprop="url">[Learning Notes] Sequence to sequence Learning with Neural Networks</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-11-09 20:48:00" itemprop="dateCreated datePublished" datetime="2017-11-09T20:48:00-05:00">2017-11-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-11-23 20:49:01" itemprop="dateModified" datetime="2017-11-23T20:49:01-05:00">2017-11-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/Learning-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning Notes</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Words in article">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">Words in article: </span>
-              <span>120</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Articles:<br><a href="https://arxiv.org/abs/1409.3215" target="_blank" rel="noopener">Sequence to sequence Learning with Neural Networks</a></p>
-<p>用到這些概念： Sequence to Sequence , RNN, LSTM, Attention, Encoder-Decoder</p>
-<p>可參考<a href="http://blog.csdn.net/qq_35647180/article/details/53576809" target="_blank" rel="noopener">論文筆記</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1167,14 +1187,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1220,13 +1240,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Words Total: </span>
-    <span title="Words Total">85k</span>
+    <span title="Words Total">87k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">1:17</span>
+    <span title="Reading time total">1:19</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
   </div>
